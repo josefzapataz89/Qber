@@ -3,31 +3,31 @@
           <h1 class="title">Bienvenido</h1>
      </ion-header-bar>
      <ion-content>
-          <div class="list list-inset">
-               <label class="item item-input positive">
-                    <h3 class="title">Iniciar Sesión</h3>
-               </label>
-               <label class="item item-input">
+          <ion-list list-inset>
+               <ion-item item-input positive>
+                    <h3 >Iniciar Sesión</h3>
+               </ion-item>
+               <ion-item item-input>
                     <input type="text" placeholder="Username or Number">
-               </label>
-               <label class="item item-input">
+               </ion-item>
+               <ion-item item-input>
                     <input type="password" placeholder="password">
-               </label>
-               <label class="item item-input">
+               </ion-item>
+               <ion-item item-input>
                     <button class="button button-full button-clear button-positive icon-right ion-chevron-right">
                          Iniciar
                     </button>
-               </label>
-          </div>
-          <div class="list">
-               <label class="item item-input">
-                    <button class="button button-positive button-clear button-full">
-                         <i class="icon-left ion-at">Contactanos</i>
+               </ion-item>
+               <ion-item item-input >
+                    <button class="button button-full button-clear button-positive"  ng-click="abrirRecuperar()">
+                        Olvido la contraseña?
                     </button>
-                    <button class="button button-full button-clear button-positive" ng-click="abrirRecuperar()">
-                         Olvido la contraseña?
+               </ion-item>
+               <ion-item nav-clear>
+                    <button class="button button-full button-clear button-positive">
+                        <i class="icon-left ion-at">Contactanos</i>
                     </button>
-               </label>
-          </div>
+               </ion-item>
+          </ion-list>
      </ion-content>
 </ion-view>
