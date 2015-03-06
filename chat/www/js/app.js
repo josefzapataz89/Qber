@@ -18,7 +18,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     abstract: true,
     templateUrl: "templates/inicio.html",
     controller: 'InicioCtrl'
-  }).state('app.search', {
+  })
+  .state('app.search', {
     url: "/search",
     views: {
       'menuContent': {
