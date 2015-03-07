@@ -1,6 +1,17 @@
 angular.module('starter.controllers', [])
 
-.controller('ContactsCtrl', function($scope) {})
+.controller('loginCtrl', function($scope,  $state){
+  $scope.login = function($scope, $state){
+  };
+
+})
+
+.controller('ContactsCtrl', function($scope, Directorio) {
+  $scope.contactos = Directorio.all();
+  $scope.borrar = function(contacto){
+    Directorio.remove(contacto);
+  }
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
