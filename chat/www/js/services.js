@@ -47,4 +47,43 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+.factory('Directorio', function(){
+  var  contact = [
+    {
+        id: 1,
+        nombre: "Adam Bradleyson",
+        numero:  "+584242097493",
+         face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
+    },
+    {
+      id: 2,
+       nombre: 'Perry Governor',
+       numero: "+584120238462",
+        face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
+    },
+    {
+      id: 3,
+     nombre: 'Max Lynx',
+      numero: "+584267869386",
+    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
+    }
+  ];
+  return{
+    all: function(){
+      return contact;
+    },
+    remove: function(person){
+      contact.splice(contact.indexOf(person), 1);
+    },
+      get: function(pId){
+        for(var i=0; i<contact.length;i++){
+          if(contact[i].id == parseInt(pid)){
+            return contact[i];
+          }
+        }
+        return null;
+    }
+};
 });
