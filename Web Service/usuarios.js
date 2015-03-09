@@ -3,8 +3,10 @@ var mongoose = require('mongoose'),
 
 	var usuario = new Schema({
 		nombre: String,
-		numphone: Number,
-		user: String
+		apellido: String,
+		email: String,
+		contrasena: String,
+		pin: Number
 	});
 
 	module.exports = mongoose.model('USUARIO', usuario);
