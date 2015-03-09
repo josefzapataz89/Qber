@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 	var msj = new Schema({
-		emisor_num: Number,
-		receptor_num: Number,
+		emisor: String,
+		receptor: String,
 		mensaje: String,
 		fecha_envio: Date()
 	});
