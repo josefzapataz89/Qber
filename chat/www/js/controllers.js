@@ -6,20 +6,32 @@ $scope.dataUsuario = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/registro.html', {
+    id: '1',
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.modal1 = modal;
   });
 
-  // Triggered in the login modal to close it
-  $scope.cerrarregistro = function() {
-    $scope.modal.hide();
-  };
+  $ionicModal.fromTemplateUrl('templates/recuperar.html', {
+    id: '2',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal2 = modal;
+  });
+
+
+   $scope.cerrarModal = function(index) {
+      if(index == 1) $scope.modal1.hide();
+      else $scope.modal2.hide();
+    };
+
 
   // Open the login modal
-  $scope.abrirregistro = function() {
-    $scope.modal.show();
+  $scope.abrirModal = function(index) {
+     if(index == 1) $scope.modal1.show();
+      else $scope.modal2.show();
   };
 
   // Perform the login action when the user submits the login form
@@ -32,7 +44,6 @@ $scope.dataUsuario = {};
       $scope.closeLogin();
     }, 1000);
   };
-
 
 })
 
