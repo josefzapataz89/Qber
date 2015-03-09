@@ -1,0 +1,35 @@
+<ion-modal-view>
+     <ion-header-bar>
+       <h1 class="title">Recuperar contraseña</h1>
+       <div class="buttons">
+         <button class="button button-clear" ng-click="cerrarModal(2)">X</button>
+       </div>
+     </ion-header-bar>
+     <ion-content>
+          <form ng-submit="registar()">
+               <div class="list">
+
+               <label class="title" type= "text">Ingresa tu Nombre de usuario y email y te enviaremos un correo con los datos de tu cuenta </label>
+
+
+                    <label class="item item-input">
+                         <span class="input-label">Username</span>
+                         <input type="text" ng-model="dataUsuario.Nombre">
+                    </label>
+
+                    <label class="item item-input">
+                         <span class="input-label">Correo electronico</span>
+                         <input type="password" ng-model="dataUsuario.password">
+                    </label>
+
+                    <label class="item item-input">
+                         <span class="input-label">Confirmar correo electronico</span>
+                         <input type="password" ng-model="dataUsuario.password">
+                    </label>
+                    <label class="item">
+                         <button class="button button-block button-positive" type="submit">Enviar</button>
+                    </label>
+               </div>
+          </form>
+     </ion-content>
+</ion-modal-view>
