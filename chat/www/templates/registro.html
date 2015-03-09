@@ -1,0 +1,41 @@
+<ion-modal-view>
+     <ion-header-bar>
+       <h1 class="title">Registro de usuario</h1>
+       <div class="buttons">
+         <button class="button button-clear" ng-click="cerrarregistro()">X</button>
+       </div>
+     </ion-header-bar>
+     <ion-content>
+          <form ng-submit="registar()">
+               <div class="list">
+                    <label class="item item-input">
+                         <span class="input-label">Nombre</span>
+                         <input type="text" ng-model="dataUsuario.Nombre">
+                    </label>
+
+                     <label class="item item-input">
+                         <span class="input-label">Apellido</span>
+                         <input type="text" ng-model="dataUsuario.username">
+                    </label>
+
+                     <label class="item item-input">
+                         <span class="input-label">Username</span>
+                         <input type="text" ng-model="dataUsuario.username">
+                    </label>
+
+                     <label class="item item-input">
+                         <span class="input-label">Password</span>
+                         <input type="text" ng-model="dataUsuario.username">
+                    </label>
+
+                    <label class="item item-input">
+                         <span class="input-label">Confirmar Password</span>
+                         <input type="password" ng-model="dataUsuario.password">
+                    </label>
+                    <label class="item">
+                         <button class="button button-block button-positive" type="submit">Enviar</button>
+                    </label>
+               </div>
+          </form>
+     </ion-content>
+</ion-modal-view>

@@ -1,8 +1,38 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic'])
 
-.controller('loginCtrl', function($scope,  $state){
-  $scope.login = function($scope, $state){
+.controller('loginCtrl', function($scope, $ionicModal, $state){
+
+$scope.dataUsuario = {};
+
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/registro.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  // Triggered in the login modal to close it
+  $scope.cerrarregistro = function() {
+    $scope.modal.hide();
   };
+
+  // Open the login modal
+  $scope.abrirregistro = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.registrar = function() {
+    console.log('recuperando', $scope.dataUsuario);
+
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 1000);
+  };
+
 
 })
 
@@ -12,6 +42,7 @@ angular.module('starter.controllers', [])
     Directorio.remove(contacto);
   }
 })
+
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
@@ -29,8 +60,12 @@ angular.module('starter.controllers', [])
     enableFriends: true
   };
 })
+
 .controller('configuracionCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
-});
+})
+
+
+;
