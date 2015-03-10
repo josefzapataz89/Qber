@@ -1,0 +1,22 @@
+<ion-modal-view>
+     <ion-header-bar>
+       <h1 class="title">Agregar Contacto</h1>
+       <div class="buttons">
+         <button class="button button-clear" ng-click="cerrarModal(1)">X</button>
+       </div>
+     </ion-header-bar>
+     <ion-content>
+          <form ng-submit="ejecutar()">
+               <div class="list">
+                    <label class="item item-input">
+                         <span class="input-label">Correo</span>
+                         <input type="text" placeholder="Correo del usuario a agregar" ng-model="contactos.nombre">
+                    </label>
+    
+                    <label class="item">
+                         <button class="button button-block button-positive" type="submit">Agregar</button>
+                    </label>
+               </div>
+          </form>
+     </ion-content>
+</ion-modal-view>
