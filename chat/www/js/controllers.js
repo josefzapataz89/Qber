@@ -47,17 +47,36 @@ $scope.dataUsuario = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, Directorio) {
+.controller('ContactsCtrl', function($scope, $ionicModal, Directorio) {
   $scope.contactos = Directorio.all();
+  $ionicModal.fromTemplateUrl('templates/agregaContacto.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal){
+      $scope.modalNU = modal;
+  });
+
+  $scope.abrirModal = function(){
+    $scope.modalNU.show();
+    };
+  $scope.cerrarModal = function(){
+     $scope.modalNU.hide();
+  };
+  $scope.ejecutar = function(){
+    console.log('ejecutando', $scope.contactos);
+    $timeout(function(){
+      $scope.modalNU.hide();
+    },1000);
+  };
   $scope.borrar = function(contacto){
     Directorio.remove(contacto);
-  }
+  };
 })
 
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
+  $scope.remove = function(chat) { 
     Chats.remove(chat);
   }
 })

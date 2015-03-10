@@ -1,7 +1,15 @@
 <ion-view view-title="Contactos">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="c in contactos" type="item-text-wrap">
+          <div class="button-bar">
+            <button class="button button-clear button-icon icon ion-ios-personadd-outline col-25" ng-click="abrirModal()"></button>
+            <label class="item item-input col-75 ">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" ng-model="busqueda">
+            </label>
+          </div>
+
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="c in contactos | filter: busqueda | orderBy: 'nombre' " type="item-text-wrap">
         <img ng-src="{{c.face}}">
         <h2>{{c.nombre}}</h2>
         <p>{{c.numero}}</p>
