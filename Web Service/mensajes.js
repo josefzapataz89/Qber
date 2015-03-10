@@ -4,8 +4,7 @@ var mongoose = require('mongoose'),
 	var msj = new Schema({
 		emisor: String,
 		receptor: String,
-		mensaje: String,
-		fecha_envio: Date()
+		mensaje: String
 	});
 
 	module.exports = mongoose.model('MSJ', msj);

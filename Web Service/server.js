@@ -2,7 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
 
-mongoose.connect('mongodb://localhost/seriestv', function(err,res){
+mongoose.connect('mongodb://localhost/chat', function(err,res){
 	if(err) console.log('ERROR: Conectando a la bd '+err);
 	else console.log('Conexion a la BDrealizada');
 });

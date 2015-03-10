@@ -16,7 +16,7 @@ module.exports = function(app){
 	//BUSCAR UN USUARIO EN ESPECIFICO POR CORREO
 
 	findByID = function(req, res){
-		USUARIOS.findByEmail(req.params.email, function(err, usuario) {
+		USUARIOS.findById(req.params.email, function(err, usuario) {
 			if(!err) res.send(usuario);
 			else console.log('ERROR: '+err);
 		});
@@ -25,7 +25,7 @@ module.exports = function(app){
 	// BUSCAR MENSAJES ENVIADOS POR UN USUARIO
 
 	findByEM = function(req, res){
-		MSJ.findByEmail(req.params.emisor, function(err, msj) {
+		MSJ.findById(req.params.emisor, function(err, msj) {
 			if(!err) res.send(msj);
 			else console.log('ERROR: '+err);
 		});
@@ -35,7 +35,7 @@ module.exports = function(app){
 	// BUSCAR MENSAJES RECIBIDOS POR UN USUARIO
 
 	findByREC = function(req, res){
-		MSJ.findByEmail(req.params.receptor, function(err, msj) {
+		MSJ.findById(req.params.receptor, function(err, msj) {
 			if(!err) res.send(msj);
 			else console.log('ERROR: '+err);
 		});
@@ -74,8 +74,7 @@ module.exports = function(app){
 
 			emisor: req.body.emisor,
 			receptor: req.body.receptor,
-			mensaje: req.body.mensaje,
-			fecha_envio: Date(null)
+			mensaje: req.body.mensaje
 		});
 
 		msj.save(function(err){
@@ -89,14 +88,13 @@ module.exports = function(app){
 	//MODIFICAR UN USUARIO (FILTRANDO POR EMAIL)
 
 	updateUser = function(req, res){
-		USUARIOS.findByEmail(req.params.email, function(err, usuario){
-
-			usuario.nombre: req.body.nombre,
-			usuario.foto: req.body.foto,
-			usuario.email: req.body.email,
-			usuario.contrasena: req.body.contrasena,
-			usuario.pin: req.body.pin,
-			usuario.status: req.body.status;
+		USUARIOS.findById(req.params.email, function(err, usuario){
+			usuario.nombre = req.body.nombre,
+			usuario.foto = req.body.foto,
+			usuario.email = req.body.email,
+			usuario.contrasena = req.body.contrasena,
+			usuario.pin = req.body.pin,
+			usuario.status = req.body.status;
 
 			usuario.save(function(err){
 						if(!err) console.log('Usuario Actualizado con exito!');
@@ -110,7 +108,7 @@ module.exports = function(app){
 	//ELIMINAR USUARIO
 
 	deleteUser = function(req, res){
-		USUARIOS.findByEmail(req.params.email, function(err, usuario){
+		USUARIOS.findById(req.params.email, function(err, usuario){
 			usuario.remove(function(err){
 				if(!err) console.log('Usuario eliminado con exito!');
 			else console.log('ERROR: '+err);
@@ -121,7 +119,7 @@ module.exports = function(app){
 	// API Routes
 
 	app.get('/usuarios', findAllUsers);
-	app.get('/usuarios/:email', findByEmail);
+	app.get('/usuarios/:email', findByID);
 	app.post('/usuarios', addUser);
 	app.put('/usuarios/:email', updateUser);
 	app.delete('/usuarios/:email', deleteUser);
