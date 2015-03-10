@@ -70,6 +70,10 @@ $scope.dataUsuario = {};
   $scope.settings = {
     enableFriends: true
   };
+
+  $scope.status = 'Feliz <3';
+  $scope.nombre = 'Milagros Paredes';
+  $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
 })
 
 .controller('configuracionCtrl', function($scope) {

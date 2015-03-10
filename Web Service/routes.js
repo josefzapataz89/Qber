@@ -49,10 +49,11 @@ module.exports = function(app){
 
 		var usuario = new USUARIOS({
 			nombre: req.body.nombre,
-			apellido: req.body.apellido,
+			foto: req.body.foto,
 			email: req.body.email,
 			contrasena: req.body.contrasena,
-			pin: req.body.pin
+			pin: req.body.pin,
+			status: req.body.status
 		});
 
 		usuario.save(function(err){
@@ -91,10 +92,11 @@ module.exports = function(app){
 		USUARIOS.findByEmail(req.params.email, function(err, usuario){
 
 			usuario.nombre: req.body.nombre,
-			usuario.apellido: req.body.apellido,
+			usuario.foto: req.body.foto,
 			usuario.email: req.body.email,
 			usuario.contrasena: req.body.contrasena,
-			usuario.pin: req.body.pin;
+			usuario.pin: req.body.pin,
+			usuario.status: req.body.status;
 
 			usuario.save(function(err){
 						if(!err) console.log('Usuario Actualizado con exito!');
