@@ -82,7 +82,7 @@ module.exports = function(app){
 			else console.log('ERROR: '+err);
 		});
 
-		res.send(usuario);
+		res.send(msj);
 	};
 
 	//MODIFICAR UN USUARIO (FILTRANDO POR EMAIL)
@@ -125,6 +125,6 @@ module.exports = function(app){
 	app.delete('/usuarios/:email', deleteUser);
 
 	app.post('/mensajes', addMsj);
-	app.get('/mensajes/:receptor_num', findByREC);
-	app.get('/mensajes/:emisor_num', findByEM);
+	app.get('/mensajes/:receptor', findByREC);
+	app.get('/mensajes/:emisor', findByEM);
 }
