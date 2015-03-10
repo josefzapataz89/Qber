@@ -1,9 +1,75 @@
 <ion-view view-title="Configuración">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
+<ion-list>	
+
+<!---  NOTIFICACIONES  -->
+
+  <ion-item item-divider>
+   <strong> NOTIFICACIONES</strong>
+  </ion-item>
+
+
+		<ion-toggle>
+		Privadas
+		<br>
+		Activar Notificaciones de chats privados
+		</ion-toggle>
+
+
+		<ion-toggle>
+		Sonido
+		</ion-toggle>
+
+		<ion-toggle>
+		Vibrar
+		</ion-toggle>
+
+
+
+		<label class="item item-input item-select">
+		<div class="input-label">
+		Luz del indicador LED
+		</div>
+		<select>
+		<option>Amarillo</option>
+		<option selected>Azul</option>
+		<option>Rojo</option>
+		</select>
+		</label>
+
+<!---  CHAT  -->
+
+ <ion-item item-divider>
+    <strong>CHATS</strong>
+  </ion-item>
+
+
+
+ <a class="item" href="#">
+    Fondo
+  </a>
+		
+		<ion-toggle>
+		Aceptar autom. chat privado
+		</ion-toggle>
+
+
+		<ion-item class="range">
+		<label><a>a</a></label>
+		<input type="range" name="volume">
+		<label><font size=6>a</font></label>
+		</ion-item>
+
+		
+		<ion-toggle>
+		Guardar Historial
+		</ion-toggle>
+
+
+		<a class="item" href="#">
+		Eliminar todos los chats
+		</a>
+
+</ion-list>
   </ion-content>
 </ion-view>
