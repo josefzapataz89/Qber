@@ -10,4 +10,8 @@ var mongoose = require('mongoose'),
 		status: String
 	});
 
+  usuario.methods.findByEmail = function findByEmail (cb) {
+  	return this.model('USUARIO').find({ email: this.email },cb)
+  };
+
 	module.exports = mongoose.model('USUARIO', usuario);

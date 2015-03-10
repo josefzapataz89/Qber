@@ -15,19 +15,22 @@ module.exports = function(app){
 
 	//BUSCAR UN USUARIO EN ESPECIFICO POR CORREO
 
-	findByID = function(req, res){
-		USUARIOS.findById(req.params.email, function(err, usuario) {
-			if(!err) res.send(usuario);
-			else console.log('ERROR: '+err);
+	findByEMAIL = function(req, res){
+		USUARIOS.findOne().where('email', req.params.email).exec(function(err, doc){
+   			console.log(err);
+   			console.log(doc);
+	
 		});
 	};
+
 
 	// BUSCAR MENSAJES ENVIADOS POR UN USUARIO
 
 	findByEM = function(req, res){
-		MSJ.findById(req.params.emisor, function(err, msj) {
-			if(!err) res.send(msj);
-			else console.log('ERROR: '+err);
+		MSJ.findOne().where('emisor', req.params.emisor).exec(function(err, doc){
+   			console.log(err);
+   			console.log(doc);
+	
 		});
 	};
 
@@ -35,9 +38,10 @@ module.exports = function(app){
 	// BUSCAR MENSAJES RECIBIDOS POR UN USUARIO
 
 	findByREC = function(req, res){
-		MSJ.findById(req.params.receptor, function(err, msj) {
-			if(!err) res.send(msj);
-			else console.log('ERROR: '+err);
+		MSJ.findOne().where('receptor', req.params.receptor).exec(function(err, doc){
+   			console.log(err);
+   			console.log(doc);
+	
 		});
 	};
 
@@ -71,7 +75,6 @@ module.exports = function(app){
 		console.log(req.body);
 
 		var msj = new MSJ({
-
 			emisor: req.body.emisor,
 			receptor: req.body.receptor,
 			mensaje: req.body.mensaje
@@ -88,7 +91,7 @@ module.exports = function(app){
 	//MODIFICAR UN USUARIO (FILTRANDO POR EMAIL)
 
 	updateUser = function(req, res){
-		USUARIOS.findById(req.params.email, function(err, usuario){
+		USUARIOS.findByEmail(req.params.email, function(err, usuario){
 			usuario.nombre = req.body.nombre,
 			usuario.foto = req.body.foto,
 			usuario.email = req.body.email,
@@ -108,7 +111,7 @@ module.exports = function(app){
 	//ELIMINAR USUARIO
 
 	deleteUser = function(req, res){
-		USUARIOS.findById(req.params.email, function(err, usuario){
+		USUARIOS.findByEmail(req.params.email, function(err, usuario){
 			usuario.remove(function(err){
 				if(!err) console.log('Usuario eliminado con exito!');
 			else console.log('ERROR: '+err);
@@ -119,12 +122,12 @@ module.exports = function(app){
 	// API Routes
 
 	app.get('/usuarios', findAllUsers);
-	app.get('/usuarios/:email', findByID);
+	app.get('/usuarios/:email', findByEMAIL);
 	app.post('/usuarios', addUser);
 	app.put('/usuarios/:email', updateUser);
 	app.delete('/usuarios/:email', deleteUser);
 
 	app.post('/mensajes', addMsj);
-	app.get('/mensajes/:receptor', findByREC);
-	app.get('/mensajes/:emisor', findByEM);
+	app.get('/mensajes/receptor/:receptor', findByREC);
+	app.get('/mensajes/emisor/:emisor', findByEM);
 }
