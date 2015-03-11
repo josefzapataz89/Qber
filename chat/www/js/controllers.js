@@ -48,9 +48,9 @@ $scope.nuevo = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, $http, $ionicModal) {
+.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda) {
   $scope.contactos = [];
-
+/*--------------  HTTP conexion con el webService  --------------*/
   $http.get('http://localhost:5000/usuarios')
     .success(function(data){
       $scope.contactos = data;
@@ -59,8 +59,16 @@ $scope.nuevo = {};
     .error(function(data){
       console.log('Error: ' + data);
     });
-   
 
+    $scope.agregarContacto = function(correo){
+        $http.post()
+          .success(function(data){
+            
+          })
+          .error();
+    };
+   
+  /*-------------------   Final conexion webService  --------------------*/
   $ionicModal.fromTemplateUrl('templates/agregaContacto.html', {
     scope: $scope,
     animation: 'slide-in-up'
