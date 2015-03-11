@@ -7,10 +7,20 @@ mongoose.connect('mongodb://localhost/chat', function(err,res){
 	else console.log('Conexion a la BDrealizada');
 });
 
+function permitirCORS(req, res, next){
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	next();
+}
+
 app.configure(function() {
+	//app.set("jsonp callback", true);
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
+	app.use(permitirCORS);
 	app.use(app.router);
+	
 });
 
 app.get('/', function(req, res){

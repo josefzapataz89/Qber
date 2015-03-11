@@ -3,6 +3,7 @@ angular.module('starter.controllers', ['ionic'])
 .controller('loginCtrl', function($scope, $ionicModal, $state){
 
 $scope.dataUsuario = {};
+$scope.nuevo = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/registro.html', {
@@ -47,8 +48,19 @@ $scope.dataUsuario = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, $ionicModal, Directorio) {
-  $scope.contactos = Directorio.all();
+.controller('ContactsCtrl', function($scope, $http, $ionicModal) {
+  $scope.contactos = [];
+
+  $http.get('http://localhost:5000/usuarios')
+    .success(function(data){
+      $scope.contactos = data;
+      console.log(data);
+    })
+    .error(function(data){
+      console.log('Error: ' + data);
+    });
+   
+
   $ionicModal.fromTemplateUrl('templates/agregaContacto.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -67,9 +79,6 @@ $scope.dataUsuario = {};
     $timeout(function(){
       $scope.modalNU.hide();
     },1000);
-  };
-  $scope.borrar = function(contacto){
-    Directorio.remove(contacto);
   };
 })
 

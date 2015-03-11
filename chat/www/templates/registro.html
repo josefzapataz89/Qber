@@ -1,41 +1,45 @@
 <ion-modal-view>
      <ion-header-bar>
+       <div class="buttons">
+         <button class="button button-clear" ng-click="cerrarModal(1)">Cancelar</button>
+       </div>
        <h1 class="title">Registro de usuario</h1>
        <div class="buttons">
-         <button class="button button-clear" ng-click="cerrarModal(1)">X</button>
+         <button class="button button-primary" ng-click="registar()">Registrar</button>
        </div>
      </ion-header-bar>
      <ion-content>
-          <form ng-submit="registar()">
-               <div class="list">
-                    <label class="item item-input">
-                         <span class="input-label">Nombre</span>
-                         <input type="text" ng-model="dataUsuario.Nombre">
-                    </label>
+           <div class="list">
+                <label class="item item-input">
+                     <span class="input-label">Nombre</span>
+                     <input type="text" ng-model="dataUsuario.Nombre">
+                </label>
 
-                     <label class="item item-input">
-                         <span class="input-label">Apellido</span>
-                         <input type="text" ng-model="dataUsuario.username">
-                    </label>
+                 <label class="item item-input">
+                     <span class="input-label">Foto Perfil</span>
+                     <input type="text" ng-model="dataUsuario.foto">
+                </label>
 
-                     <label class="item item-input">
-                         <span class="input-label">Username</span>
-                         <input type="text" ng-model="dataUsuario.username">
-                    </label>
+                 <label class="item item-input">
+                     <span class="input-label">Email</span>
+                     <input type="email" ng-model="dataUsuario.email">
+                </label>
 
-                     <label class="item item-input">
-                         <span class="input-label">Password</span>
-                         <input type="text" ng-model="dataUsuario.username">
-                    </label>
+                 <label class="item item-input">
+                     <span class="input-label">Contraseña</span>
+                     <input type="text" ng-model="dataUsuario.contra">
+                </label>
 
-                    <label class="item item-input">
-                         <span class="input-label">Confirmar Password</span>
-                         <input type="password" ng-model="dataUsuario.password">
-                    </label>
-                    <label class="item">
-                         <button class="button button-block button-positive" type="submit">Enviar</button>
-                    </label>
-               </div>
-          </form>
+                <label class="item item-input">
+                     <span class="input-label">Confirmar Contraseña</span>
+                     <input type="password" ng-model="dataUsuario.contra2">
+                </label>
+
+                <label class="item item-input">
+                     <span class="input-label">PIN (chat privado)</span>
+                     <input type="number" ng-model="dataUsuario.pin">
+                </label>
+
+           </div>
      </ion-content>
 </ion-modal-view>
