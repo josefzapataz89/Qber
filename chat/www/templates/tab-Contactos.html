@@ -10,9 +10,9 @@
           </div>
 
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="c in contactos | filter: busqueda | orderBy: 'nombre' " type="item-text-wrap">
-        <img ng-src="{{c.face}}">
-        <h2>{{c.nombre}}</h2>
-        <p>{{c.numero}}</p>
+        <!-- <img ng-src="{{c.face}}"> -->
+        <h2><strong>{{c.nombre}} - </strong>{{c.status}}</h2>
+        <p>{{c.email}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
         
         <ion-option-button class="button-assertive" ng-click="borrar(c)">
