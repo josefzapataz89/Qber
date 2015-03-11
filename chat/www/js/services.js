@@ -1,89 +1,45 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ["LocalStorageModule"])
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
+  .factory('Agenda', function(localStorageService){
+    var agenda = {};
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-  }, {
-    id: 2,
-    name: 'Andrew Jostlin',
-    lastText: 'Did you get the ice cream?',
-    face: 'https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg'
-  }, {
-    id: 3,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 4,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
-  }];
+    agenda.key = "Qber-agenda";
 
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
+    if(localStorageService.get(agenda.key)){
+      agenda.contactos = localStorageService.get(agenda.key);
     }
-  };
-})
+    else{
+      agenda.contactos = [];
+    }
 
-.factory('Directorio', function(){
-  var  contact = [
-    {
-        id: 1,
-        nombre: "Adam Bradleyson",
-        numero:  "+584242097493",
-         face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-    },
-    {
-      id: 2,
-       nombre: 'Perry Governor',
-       numero: "+584120238462",
-        face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
-    },
-    {
-      id: 3,
-     nombre: 'Max Lynx',
-      numero: "+584267869386",
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-    }
-  ];
-  return{
-    all: function(){
-      return contact;
-    },
-    remove: function(person){
-      contact.splice(contact.indexOf(person), 1);
-    },
-      get: function(pId){
-        for(var i=0; i<contact.length;i++){
-          if(contact[i].id == parseInt(pid)){
-            return contact[i];
-          }
-        }
-        return null;
-    }
-};
-});
+    agenda.updateLocalStorage = function(){
+      localStorageService.set(agenda.key, agenda.contactos);
+    };
+
+    agenda.agregar = function(nuevoContacto){
+      agenda.contactos.push(nuevoContacto);
+      agenda.updateLocalStorage();
+    };
+
+    agenda.listarContactos = function(){
+      return agenda.contactos;
+    };
+
+    agenda.limpiar = function(){
+      agenda.contactos = [];
+      agenda.updateLocalStorage();
+      return agenda.listarContactos();
+    };
+
+    agenda.eliminarContacto = function(item){
+      agenda.contactos = agenda.contactos.filter(function(contacto){
+        return contacto !== item;
+      });
+      agenda.updateLocalStorage();
+      return agenda.listarContactos();
+    };
+
+    return agenda;
+
+  })
+;
