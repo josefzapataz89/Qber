@@ -62,21 +62,20 @@ $scope.nuevo = {};
       console.log('Error: ' + data);
     });
 
-    $scope.agregarContacto = function(){
-        $http.get('http://localhost:5000/usuarios/'+$scope.nuevoContacto.correo)
-          .success(function(data){
-              $scope.nuevo = data;
-          })
-          .error(function(data){
-             console.log('Error: ' + data);
-          });
+    $scope.agregar = function(user){
+      $scope.nuevo = user;
+            
+      console.log($scope.nuevo.nombre);
+    };
 
-          if($scope.nuevo == null){
-            alert('No registrado');
-          }
-          else{
-            console.log($scope.nuevo);
-          }
+    $scope.buscarCorreo = function(){
+        $http.get('http://localhost:5000/usuarios/'+$scope.nuevoContacto.correo)
+              .success(function(data){
+                  $scope.agregar(data);
+              })
+              .error(function(data){
+                 console.log('Error: ' + data);
+              });
     };
    
   /*-------------------   Final conexion webService  --------------------*/

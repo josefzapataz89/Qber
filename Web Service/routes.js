@@ -15,9 +15,13 @@ module.exports = function(app){
 
 	//BUSCAR UN USUARIO EN ESPECIFICO POR CORREO
 
+	
 	findByEMAIL = function(req, res){
-		USUARIOS.findOne().where('email', req.params.email).exec(function(err, doc){
-   			if(!err) res.send(doc);
+		USUARIOS.findOne({'email':req.params.email}, function(err, user){
+			if(!err) {
+				console.log(user);
+				res.send(user);
+			}
 		 	else console.log('ERROR: '+err);
 		});
 	};
