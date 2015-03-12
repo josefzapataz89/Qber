@@ -1,36 +1,34 @@
 <ion-view view-title="Perfil">
   <ion-content>
-    <div class="list">
+    <ion-list>
 
-  <a class="item item-icon-left" href="#">
-    <i class=" item-remove-animate item-avatar item-icon-left">
-    	 <img ng-src="{{foto}}">
-    	  Editar
-    	  <i class="icon ion-chevron-right icon-accessory"></i>
-    </i>
+    <ion-item>
+      <i class=" item-remove-animate item-avatar item-icon-left">
+      <img ng-src="{{foto}}">
+      Editar
+      <i class="icon ion-chevron-right icon-accessory"></i>
+      </i>
+    </ion-item>
 
-   
-  </a>
+    <ion-item item-icon-left>
+      <i class="icon ion-person"></i>
+      Nombre
+      <input type="text" ng-model="nombre">
+    </ion-item>
 
-   <a class="item item-icon-left" href="#">
-    <i class="icon ion-person"></i>
-    Nombre
-    <input type="text" ng-model="nombre">
-  </a>
+    <ion-item item-icon-left>
+      <i class="icon ion-android-happy"></i>
+      Status
+      <input type="text" ng-model="status">
+      </span>
+    </ion-item>
 
-   <a class="item item-icon-left" href="#">
-    <i class="icon ion-android-happy"></i>
-    Status
-    <input type="text" ng-model="status">
-    </span>
-  </a>
+    <ion-item item-icon-left item-icon-right>
+      <i class="icon ion-key"></i>
+      Cambiar pin de seguridad
+      <i class="icon ion-ios7-telephone-outline"></i>
+    </ion-item>
 
-  <a class="item item-icon-left item-icon-right" href="#">
-    <i class="icon ion-key"></i>
-    Cambiar pin de seguridad
-    <i class="icon ion-ios7-telephone-outline"></i>
-  </a>
-
-</div>
+    </ion-list>
   </ion-content>
 </ion-view>

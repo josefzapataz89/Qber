@@ -53,19 +53,27 @@ $scope.nuevo = {};
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
 /*--------------  HTTP conexion con el webService  --------------*/
-  $http.get('http://localhost:5000/usuarios')
-    .success(function(data){
-      $scope.contactos = data;
-      console.log(data);
-    })
-    .error(function(data){
-      console.log('Error: ' + data);
-    });
+    $scope.contactos = Agenda.listarContactos();
 
     $scope.agregar = function(user){
-      $scope.nuevo = user;
-            
-      console.log($scope.nuevo.nombre);
+      if(user!== ""){
+        console.log('si ta registrado');
+        console.log(user);
+        var contacto = {};
+        contacto.nombre = user.nombre;
+        contacto.correo = user.email;
+        contacto.status  = user.status;
+        contacto.imagen = user.face;
+        Agenda.agregar(contacto);
+      }
+      else{
+        console.log('no esta registrado');
+        alert('No se encuentra ningun usuario con el correo');
+      }
+    };
+    $scope.borrarC = function(user){
+      Agenda.eliminarContacto(user);
+      $scope.contactos = Agenda.listarContactos();
     };
 
     $scope.buscarCorreo = function(){
@@ -101,15 +109,12 @@ $scope.nuevo = {};
 })
 
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) { 
-    Chats.remove(chat);
-  }
+.controller('ChatsCtrl', function($scope) {
+  
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetailCtrl', function($scope, $stateParams) {
+//  $scope.chat = Chats.get($stateParams.chatId);
 })
 
 .controller('perfilCtrl', function($scope) {
@@ -126,7 +131,4 @@ $scope.nuevo = {};
   $scope.settings = {
     enableFriends: true
   };
-})
-
-
-;
+});
