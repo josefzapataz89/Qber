@@ -15,11 +15,14 @@ module.exports = function(app){
 
 	//BUSCAR UN USUARIO EN ESPECIFICO POR CORREO
 
-	findByEMAIL = function(req, res){
-		USUARIOS.findOne().where('email', req.params.email).exec(function(err, doc){
-   			console.log(err);
-   			console.log(doc);
 	
+	findByEMAIL = function(req, res){
+		USUARIOS.findOne({'email':req.params.email}, function(err, user){
+			if(!err) {
+				console.log(user);
+				res.send(user);
+			}
+		 	else console.log('ERROR: '+err);
 		});
 	};
 
@@ -30,7 +33,7 @@ module.exports = function(app){
 		MSJ.findOne().where('emisor', req.params.emisor).exec(function(err, doc){
    			console.log(err);
    			console.log(doc);
-	
+			res.send(doc);
 		});
 	};
 
@@ -41,7 +44,8 @@ module.exports = function(app){
 		MSJ.findOne().where('receptor', req.params.receptor).exec(function(err, doc){
    			console.log(err);
    			console.log(doc);
-	
+				res.send(doc);
+
 		});
 	};
 
