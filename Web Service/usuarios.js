@@ -7,11 +7,8 @@ var mongoose = require('mongoose'),
 		email: String,
 		contrasena: String,
 		pin: Number,
-		status: String
+		status: String,
+		
 	});
-
-  usuario.methods.findByEmail = function findByEmail (cb) {
-  	return this.model('USUARIO').find({ email: this.email },cb)
-  };
 
 	module.exports = mongoose.model('USUARIO', usuario);

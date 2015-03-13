@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
 	var msj = new Schema({
 		emisor: String,
 		receptor: String,
+		//updated_at: { type: Date, default: Date.now },
 		mensaje: String
 	});
 
