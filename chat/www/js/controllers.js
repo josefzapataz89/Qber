@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('loginCtrl', function($scope, $ionicModal, $state){
+.controller('loginCtrl', function($scope, $ionicModal, $state, $http){
 
 $scope.dataUsuario = {};
 $scope.nuevo = {};
@@ -35,16 +35,47 @@ $scope.nuevo = {};
       else $scope.modal2.show();
   };
 
-  // Perform the login action when the user submits the login form
-  $scope.registrar = function() {
-    console.log('recuperando', $scope.dataUsuario);
+//---
+$scope.usuario = [];
+$scope.nuevousuario = {};
+$scope.nuevo2 = {};
+/*--------------  HTTP conexion con el webService  --------------*/
+ 
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+    $scope.registrarU = function(){
+     //$scope.nuevo2 = per;
+     alert('le entro');
+
+    $http.post('http://localhost:5000/usuarios', $scope.nuevousuario)
+    .success(function(data){
+    console.log(data);
+    })
+    .error(function(per){
+      console.log('Error: ' + per);
+    });
+
+
+     // console.log($scope.nuevo2.nombre);
+    };
+
+    $scope.validarcorreo = function(){
+
+        $http.get('http://localhost:5000/usuarios/' + $scope.nuevousuario.email)
+              .success(function(data){
+
+                if(data  == ""){
+                  console.log('holisss');
+                  //$scope.registrar($scope.nuevousuario);
+                }else{
+                console.log(data);
+                }
+              })
+              .error(function(data){
+                 console.log('Error: ' + data);
+              });
+    };
+//---
+
 
 })
 
@@ -99,7 +130,6 @@ $scope.nuevo = {};
     },1000);
   };
 })
-
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
