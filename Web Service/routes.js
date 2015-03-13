@@ -30,23 +30,26 @@ module.exports = function(app){
 	// BUSCAR MENSAJES ENVIADOS POR UN USUARIO
 
 	findByEM = function(req, res){
-		MSJ.findOne().where('emisor', req.params.emisor).exec(function(err, doc){
-   			console.log(err);
-   			console.log(doc);
-			res.send(doc);
-		});
+        MSJ.findOne({'emisor': req.params.emisor}, function(err, user){
+            if(!err){
+                console.log(user);
+                res.send(user);
+            }
+            else console.log('Error: ' + err);
+        });
 	};
 
 
 	// BUSCAR MENSAJES RECIBIDOS POR UN USUARIO
 
 	findByREC = function(req, res){
-		MSJ.findOne().where('receptor', req.params.receptor).exec(function(err, doc){
-   			console.log(err);
-   			console.log(doc);
-				res.send(doc);
-
-		});
+        MSJ.findOne({},function(err, user){
+            if(!err){
+                console.log(user);
+                res.send(user);
+            }
+            else console.log('Error: ' + err);
+        });
 	};
 
 	//AGREGAR UN USUARIO
