@@ -1,9 +1,28 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('loginCtrl', function($scope, $ionicModal, $state){
+.controller('loginCtrl', function($scope, $ionicModal, $state, $http){
 
 $scope.dataUsuario = {};
 $scope.nuevo = {};
+
+  $scope.agregarUsuario = function(){
+    $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
+    $scope.nuevo.foto = $scope.dataUsuario.foto;
+    $scope.nuevo.email = $scope.dataUsuario.email;
+    $scope.nuevo.contrasena = $scope.dataUsuario.contra;
+    $scope.nuevo.pin = $scope.dataUsuario.pin;
+    $scope.nuevo.status = "Comenzando a usar Qber";
+    $http.defaults.useXDomain = true;
+    $http.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+    $http.post('http://localhost:5000/usuarios',$scope.dataUsuario)
+      .success(function(data){
+        console.log('registrado');
+        console.log(data);
+      })
+      .error(function(err){
+        console.log(err);
+      });
+  };
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/registro.html', {
