@@ -56,10 +56,11 @@ module.exports = function(app){
 
 	addUser = function(req, res){
 		console.log('POST');
-		console.log(req.body);
+		var datos = req.body;
+        console.log(datos);
 
 		var usuario = new USUARIOS({
-			nombre: req.body.nombre,
+			nombre: req.header.nombre,
 			foto: req.body.foto,
 			email: req.body.email,
 			contrasena: req.body.contrasena,
@@ -67,12 +68,14 @@ module.exports = function(app){
 			status: req.body.status
 		});
 
+        //console.log(usuario);
 		usuario.save(function(err){
 			if(!err) console.log('Usuario agregado con exito!');
 			else console.log('ERROR: '+err);
 		});
-
+        
 		res.send(usuario);
+        
 	};
 
 	//NUEVO UN MENSAJE

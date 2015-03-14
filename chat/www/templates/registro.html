@@ -5,11 +5,12 @@
        </div>
        <h1 class="title">Registro de usuario</h1>
        <div class="buttons">
-         <button class="button button-primary" ng-click="registar()">Registrar</button>
+         <button class="button button-primary" ng-click="agregarUsuario()">Registrar</button>
        </div>
      </ion-header-bar>
      <ion-content>
-           <div class="list">
+           <ion-list>
+
                 <label class="item item-input">
                      <span class="input-label">Nombre</span>
                      <input type="text" ng-model="dataUsuario.Nombre">
@@ -40,6 +41,6 @@
                      <input type="number" ng-model="dataUsuario.pin">
                 </label>
 
-           </div>
+           </ion-list>
      </ion-content>
 </ion-modal-view>

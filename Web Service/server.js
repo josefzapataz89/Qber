@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/chat', function(err,res){
 function permitirCORS(req, res, next){
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	res.header('Access-Control-Allow-Headers', "Content-Type, Accept");
 	next();
 }
 
