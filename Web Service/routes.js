@@ -2,7 +2,6 @@ module.exports = function(app){
 
 	var USUARIOS = require('./usuarios');
 	var MSJ = require('./mensajes');
-	var CONTACTO = require('./contactos');
 
 	//MOSTRAR TODOS LOS USUARIOS
 
@@ -79,29 +78,6 @@ module.exports = function(app){
         
 	};
 
-	// AGREGAR CONTACTO
-
-	AddContact = function(req,res){}
-		console.log('POST');
-		console.log(req.body);
-
-		var contact = new CONTACTO({
-			propietario: req.body.propietario,
-			nombre: req.body.nombre,
-			foto: req.body.foto,
-			email: req.body.email, 
-			status: req.body.status;
-		});
-
-		contact.save(function(err){
-			if(!err) console.log('Contacto agregado con exito!');
-			else console.log('ERROR: '+err);
-		});
-
-		res.send(contact);
-		
-}
-
 	//NUEVO UN MENSAJE
 
 	addMsj = function(req, res){
@@ -164,6 +140,4 @@ module.exports = function(app){
 	app.post('/mensajes', addMsj);
 	app.get('/mensajes/receptor/:receptor', findByREC);
 	app.get('/mensajes/emisor/:emisor', findByEM);
-
-	app.post('/contactos', AddContact);
 }
