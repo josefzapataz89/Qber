@@ -11,12 +11,19 @@ $scope.nuevo = {};
     $scope.nuevo.email = $scope.dataUsuario.email;
     $scope.nuevo.contrasena = $scope.dataUsuario.contra;
     $scope.nuevo.pin = $scope.dataUsuario.pin;
-    $scope.nuevo.status = "Comenzando a usar Qber";
-    $http.defaults.useXDomain = true;
-    $http.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    $http.post('http://localhost:5000/usuarios',$scope.dataUsuario)
+    $scope.nuevo.estado = "Comenzando a usar Qber";
+ 
+  console.log($scope.nuevo);
+
+    $http({
+        method: 'POST',
+        url: 'http://localhost:5000/api/usuarios',
+        data: $scope.nuevo,
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+        })
       .success(function(data){
-        console.log('registrado');
         console.log(data);
       })
       .error(function(err){
