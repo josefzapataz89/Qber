@@ -85,7 +85,7 @@ $scope.nuevo = {};
     $scope.contactos = Agenda.listarContactos();
 
     $scope.agregar = function(user){
-      if(user!== nulle){
+      if(user!== null){
         console.log('si ta registrado');
         console.log(user);
         var contacto = {};
