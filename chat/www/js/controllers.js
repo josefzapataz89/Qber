@@ -2,8 +2,13 @@ angular.module('starter.controllers', ['ionic'])
 
 .controller('loginCtrl', function($scope, $ionicModal, $state, $http){
 
+$scope.dataInicio = {};
 $scope.dataUsuario = {};
 $scope.nuevo = {};
+
+    $scope.inicio = function(){
+        console.log("LOGIN user: " + $scope.dataInicio.username+ " - PW: " + $scope.dataInicio.password);
+    };
 
   $scope.agregarUsuario = function(){
     $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
@@ -105,7 +110,7 @@ $scope.nuevo = {};
     };
 
     $scope.buscarCorreo = function(){
-        $http.get('http://localhost:5000/usuarios/'+$scope.nuevoContacto.correo)
+        $http.get('http://localhost:5000/api/usuarios/'+$scope.nuevoContacto.correo)
               .success(function(data){
                   $scope.agregar(data);
               })
@@ -171,3 +176,5 @@ $scope.nuevo = {};
     enableFriends: true
   };
 });
+
+

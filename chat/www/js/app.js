@@ -35,6 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: "/inicio",
       templateUrl: "templates/inicio.html",
       controller: 'loginCtrl'
+
     })
    
     .state('tab', {
