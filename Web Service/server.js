@@ -58,6 +58,14 @@ router.route('/usuarios')
 			res.json(Usuarios);
 		});
 	});
+router.route('/usuarios/:correo')
+	.get(function(req, res){
+		Usuario.findOne({'email': req.params.correo}, function(err, user){
+			if(err)
+				res.send(err);
+			res.json(user);
+		});
+	});
 
 app.use('/api', router);
 

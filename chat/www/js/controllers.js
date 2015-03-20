@@ -5,6 +5,33 @@ angular.module('starter.controllers', ['ionic'])
 $scope.dataUsuario = {};
 $scope.nuevo = {};
 
+  $scope.agregarUsuario = function(){
+    $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
+    $scope.nuevo.foto = $scope.dataUsuario.foto;
+    $scope.nuevo.email = $scope.dataUsuario.email;
+    $scope.nuevo.contrasena = $scope.dataUsuario.contra;
+    $scope.nuevo.pin = $scope.dataUsuario.pin;
+    $scope.nuevo.estado = "Comenzando a usar Qber";
+ 
+  console.log($scope.nuevo);
+
+    $http({
+        method: 'POST',
+        url: 'http://localhost:5000/api/usuarios',
+        data: $scope.nuevo,
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+        })
+      .success(function(data){
+        console.log(data);
+        $scope.cerrarModal(1);
+      })
+      .error(function(err){
+        console.log(err);
+      });
+  };
+
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/registro.html', {
     id: '1',
@@ -94,13 +121,32 @@ $scope.nuevo2 = {};
     });
 
     $scope.agregar = function(user){
+      if(user!== null){
+        console.log('si ta registrado');
+        console.log(user);
+        var contacto = {};
+        contacto.nombre = user.nombre;
+        contacto.correo = user.email;
+        contacto.estado  = user.estado;
+        contacto.imagen = user.foto;
+        Agenda.agregar(contacto);
+        $scope.cerrarModal();
+      }
+      else{
+        console.log('no esta registrado');
+        alert('No se encuentra ningun usuario con el correo');
+      }
+    };
+    $scope.borrarC = function(user){
+      Agenda.eliminarContacto(user);
+      $scope.contactos = Agenda.listarContactos();
       $scope.nuevo = user;
             
       console.log($scope.nuevo.nombre);
     };
 
     $scope.buscarCorreo = function(){
-        $http.get('http://localhost:5000/usuarios/'+$scope.nuevoContacto.correo)
+        $http.get('http://localhost:5000/api/usuarios/'+$scope.nuevoContacto.correo)
               .success(function(data){
                   $scope.agregar(data);
               })
