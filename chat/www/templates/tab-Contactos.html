@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list>
           <div class="button-bar">
-            <button class="button button-clear button-icon icon ion-ios-personadd-outline col-25" ng-click="abrirModal()"></button>
+            <button class="button button-clear button-icon icon ion-ios-personadd-outline col-25" ng-click="abrirModal(3)"></button>
             <label class="item item-input col-75 ">
               <i class="icon ion-search placeholder-icon"></i>
               <input type="text" ng-model="busqueda" placeholder="Nombre o Correo">
@@ -11,10 +11,12 @@
 
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="c in contactos | filter: busqueda | orderBy: 'nombre' " type="item-text-wrap">
         <!-- <img ng-src="{{c.imagen}}"> -->
+
+
         <h2><strong>{{c.nombre}} - </strong>{{c.status}}</h2>
         <p>{{c.correo}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-        
+        <a class="button button-icon icon ion-ios-chatboxes-outline button-clear" ng-click="abrirModal(2)"></a> -
+           
         <ion-option-button class="button-assertive" ng-click="borrarC(c)">
           Eliminar
         </ion-option-button>
