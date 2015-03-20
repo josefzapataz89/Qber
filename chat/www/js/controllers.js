@@ -5,7 +5,6 @@ angular.module('starter.controllers', ['ionic'])
 $scope.dataUsuario = {};
 $scope.nuevo = {};
 
-<<<<<<< HEAD
   $scope.agregarUsuario = function(){
     $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
     $scope.nuevo.foto = $scope.dataUsuario.foto;
@@ -33,8 +32,6 @@ $scope.nuevo = {};
       });
   };
 
-=======
->>>>>>> upstream/master
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/registro.html', {
     id: '1',
@@ -124,7 +121,6 @@ $scope.nuevo2 = {};
     });
 
     $scope.agregar = function(user){
-<<<<<<< HEAD
       if(user!== null){
         console.log('si ta registrado');
         console.log(user);
@@ -144,11 +140,9 @@ $scope.nuevo2 = {};
     $scope.borrarC = function(user){
       Agenda.eliminarContacto(user);
       $scope.contactos = Agenda.listarContactos();
-=======
       $scope.nuevo = user;
             
       console.log($scope.nuevo.nombre);
->>>>>>> upstream/master
     };
 
     $scope.buscarCorreo = function(){
