@@ -25,6 +25,7 @@ $scope.nuevo = {};
         })
       .success(function(data){
         console.log(data);
+        $scope.cerrarModal(1);
       })
       .error(function(err){
         console.log(err);
@@ -82,15 +83,16 @@ $scope.nuevo = {};
     $scope.contactos = Agenda.listarContactos();
 
     $scope.agregar = function(user){
-      if(user!== ""){
+      if(user!== nulle){
         console.log('si ta registrado');
         console.log(user);
         var contacto = {};
         contacto.nombre = user.nombre;
         contacto.correo = user.email;
-        contacto.status  = user.status;
-        contacto.imagen = user.face;
+        contacto.estado  = user.estado;
+        contacto.imagen = user.foto;
         Agenda.agregar(contacto);
+        $scope.cerrarModal();
       }
       else{
         console.log('no esta registrado');
@@ -103,7 +105,7 @@ $scope.nuevo = {};
     };
 
     $scope.buscarCorreo = function(){
-        $http.get('http://localhost:5000/usuarios/'+$scope.nuevoContacto.correo)
+        $http.get('http://localhost:5000/api/usuarios/'+$scope.nuevoContacto.correo)
               .success(function(data){
                   $scope.agregar(data);
               })
