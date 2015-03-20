@@ -1,1 +1,18 @@
-/* Empty. Add your own CSS if you like */
+.msg-header-username {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  right: -5px;
+}
+
+.user-messages-top-icon {
+  font-size: 98px;
+  font-color: #FFFFFF;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -3px;
+  right: 5px;
+}
+
