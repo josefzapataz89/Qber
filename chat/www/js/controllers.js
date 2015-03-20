@@ -50,9 +50,11 @@ $scope.nuevo = {};
   });
 
 
+
    $scope.cerrarModal = function(index) {
       if(index == 1) $scope.modal1.hide();
       else $scope.modal2.hide();
+
     };
 
 
@@ -116,17 +118,28 @@ $scope.nuevo = {};
    
   /*-------------------   Final conexion webService  --------------------*/
   $ionicModal.fromTemplateUrl('templates/agregaContacto.html', {
+    id: '3',
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal){
-      $scope.modalNU = modal;
+      $scope.modal3 = modal;
   });
 
-  $scope.abrirModal = function(){
-    $scope.modalNU.show();
+   $ionicModal.fromTemplateUrl('templates/NuevoChat.html', {
+    id: '4',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) { 
+    $scope.modal4 = modal;
+  });
+
+  $scope.abrirModal = function(index){
+      if(index == 3) $scope.modal3.show();
+      else $scope.modal4.show();
     };
-  $scope.cerrarModal = function(){
-     $scope.modalNU.hide();
+  $scope.cerrarModal = function(index){
+      if(index == 3) $scope.modal3.hide();
+      else $scope.modal4.hide();
   };
   $scope.ejecutar = function(){
     console.log('ejecutando', $scope.contactos);
