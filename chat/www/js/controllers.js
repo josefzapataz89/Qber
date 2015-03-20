@@ -5,6 +5,32 @@ angular.module('starter.controllers', ['ionic'])
 $scope.dataUsuario = {};
 $scope.nuevo = {};
 
+  $scope.agregarUsuario = function(){
+    $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
+    $scope.nuevo.foto = $scope.dataUsuario.foto;
+    $scope.nuevo.email = $scope.dataUsuario.email;
+    $scope.nuevo.contrasena = $scope.dataUsuario.contra;
+    $scope.nuevo.pin = $scope.dataUsuario.pin;
+    $scope.nuevo.estado = "Comenzando a usar Qber";
+ 
+  console.log($scope.nuevo);
+
+    $http({
+        method: 'POST',
+        url: 'http://localhost:5000/api/usuarios',
+        data: $scope.nuevo,
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+        })
+      .success(function(data){
+        console.log(data);
+      })
+      .error(function(err){
+        console.log(err);
+      });
+  };
+
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/registro.html', {
     id: '1',
@@ -23,9 +49,11 @@ $scope.nuevo = {};
   });
 
 
+
    $scope.cerrarModal = function(index) {
       if(index == 1) $scope.modal1.hide();
       else $scope.modal2.hide();
+
     };
 
 
@@ -84,19 +112,27 @@ $scope.nuevo2 = {};
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
 /*--------------  HTTP conexion con el webService  --------------*/
-  $http.get('http://localhost:5000/usuarios')
-    .success(function(data){
-      $scope.contactos = data;
-      console.log(data);
-    })
-    .error(function(data){
-      console.log('Error: ' + data);
-    });
+    $scope.contactos = Agenda.listarContactos();
 
     $scope.agregar = function(user){
-      $scope.nuevo = user;
-            
-      console.log($scope.nuevo.nombre);
+      if(user!== ""){
+        console.log('si ta registrado');
+        console.log(user);
+        var contacto = {};
+        contacto.nombre = user.nombre;
+        contacto.correo = user.email;
+        contacto.status  = user.status;
+        contacto.imagen = user.face;
+        Agenda.agregar(contacto);
+      }
+      else{
+        console.log('no esta registrado');
+        alert('No se encuentra ningun usuario con el correo');
+      }
+    };
+    $scope.borrarC = function(user){
+      Agenda.eliminarContacto(user);
+      $scope.contactos = Agenda.listarContactos();
     };
 
     $scope.buscarCorreo = function(){
@@ -111,17 +147,28 @@ $scope.nuevo2 = {};
    
   /*-------------------   Final conexion webService  --------------------*/
   $ionicModal.fromTemplateUrl('templates/agregaContacto.html', {
+    id: '3',
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal){
-      $scope.modalNU = modal;
+      $scope.modal3 = modal;
   });
 
-  $scope.abrirModal = function(){
-    $scope.modalNU.show();
+   $ionicModal.fromTemplateUrl('templates/NuevoChat.html', {
+    id: '4',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) { 
+    $scope.modal4 = modal;
+  });
+
+  $scope.abrirModal = function(index){
+      if(index == 3) $scope.modal3.show();
+      else $scope.modal4.show();
     };
-  $scope.cerrarModal = function(){
-     $scope.modalNU.hide();
+  $scope.cerrarModal = function(index){
+      if(index == 3) $scope.modal3.hide();
+      else $scope.modal4.hide();
   };
   $scope.ejecutar = function(){
     console.log('ejecutando', $scope.contactos);
@@ -131,15 +178,21 @@ $scope.nuevo2 = {};
   };
 })
 
+
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
   $scope.remove = function(chat) { 
     Chats.remove(chat);
   }
+
+
+.controller('ChatsCtrl', function($scope) {
+  
+
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetailCtrl', function($scope, $stateParams) {
+//  $scope.chat = Chats.get($stateParams.chatId);
 })
 
 .controller('perfilCtrl', function($scope) {
@@ -156,7 +209,4 @@ $scope.nuevo2 = {};
   $scope.settings = {
     enableFriends: true
   };
-})
-
-
-;
+});
