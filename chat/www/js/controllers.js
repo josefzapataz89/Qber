@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('loginCtrl', function($scope, $ionicModal, $state, $http){
+.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http){
 
 $scope.dataInicio = {};
 $scope.dataUsuario = {};
@@ -8,6 +8,15 @@ $scope.nuevo = {};
 
     $scope.inicio = function(){
         console.log("LOGIN user: " + $scope.dataInicio.username+ " - PW: " + $scope.dataInicio.password);
+
+        LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
+        $state.go('tab.chats');
+        }).error(function(data) {
+        var alertPopup = $ionicPopup.alert({
+        title: 'Error al Iniciar!',
+        template: 'Porfavor Revisa tu usuario o contraseña!'
+        });
+        });
     };
 
   $scope.agregarUsuario = function(){
