@@ -20,7 +20,7 @@ $scope.nuevo = {};
     };
 
   $scope.agregarUsuario = function(){
-    $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
+    $scope.nuevo.nombre = $scope.dataUsuario.nombre;
     $scope.nuevo.foto = $scope.dataUsuario.foto;
     $scope.nuevo.email = $scope.dataUsuario.email;
     $scope.nuevo.contrasena = $scope.dataUsuario.contra;
@@ -77,16 +77,45 @@ $scope.nuevo = {};
       else $scope.modal2.show();
   };
 
-  // Perform the login action when the user submits the login form
-  $scope.registrar = function() {
-    console.log('recuperando', $scope.dataUsuario);
+//---
+$scope.usuario = [];
+$scope.nuevousuario = {};
+$scope.nuevo2 = {};
+/*--------------  HTTP conexion con el webService  --------------*/
+ 
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+    $scope.registrarU = function(){
+     //$scope.nuevo2 = per;
+     alert('le entro');
+
+    $http.post('http://localhost:5000/api/usuarios', $scope.nuevousuario)
+      .success(function(data){
+      console.log(data);
+      })
+      .error(function(per){
+        console.log('Error: ' + per);
+      });
+
+
+     // console.log($scope.nuevo2.nombre);
+    };
+
+    $scope.validarcorreo = function(){
+
+        $http.get('http://localhost:5000/api/usuarios/' + $scope.nuevousuario.email)
+              .success(function(data){
+
+                if(data  == ""){
+                  console.log('holisss');
+                  //$scope.registrar($scope.nuevousuario);
+                }else{
+                console.log(data);
+                }
+              })
+              .error(function(data){
+                 console.log('Error: ' + data);
+              });
+    };
 
 })
 
@@ -95,18 +124,30 @@ $scope.nuevo = {};
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
 /*--------------  HTTP conexion con el webService  --------------*/
-    $scope.contactos = Agenda.listarContactos();
+    console.log('cargando contactos del service');
+
+    $http.get('http://localhost:5000/api/agenda/jose@gmail.com')
+        .success(function(listaContactos){
+          console.log(listaContactos);
+          $scope.contactos = listaContactos;        
+        })
+        .error(function(error){
+          console.log(error);
+        });
 
     $scope.agregar = function(user){
-      if(user!== ""){
+      if(user !== null){
         console.log('si ta registrado');
         console.log(user);
         var contacto = {};
         contacto.nombre = user.nombre;
         contacto.correo = user.email;
-        contacto.status  = user.status;
-        contacto.imagen = user.face;
+        contacto.estado  = user.estado;
+        contacto.imagen = user.foto;
         Agenda.agregar(contacto);
+        $scope.nuevoContacto = {};
+        $scope.cerrarModal(3);
+        location.reload(true);            
       }
       else{
         console.log('no esta registrado');
@@ -115,7 +156,7 @@ $scope.nuevo = {};
     };
     $scope.borrarC = function(user){
       Agenda.eliminarContacto(user);
-      $scope.contactos = Agenda.listarContactos();
+      location.reload(true);
     };
 
     $scope.buscarCorreo = function(){
@@ -162,8 +203,19 @@ $scope.nuevo = {};
 })
 
 
+.controller('ChatsCtrl', function($scope, Chats) {
+  $scope.chats = Chats.all();
+
+  $scope.remove = function(chat) { 
+    Chats.remove(chat);
+  };
+})
+
+
+
 .controller('ChatsCtrl', function($scope) {
   
+
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
@@ -181,9 +233,7 @@ $scope.nuevo = {};
 })
 
 .controller('configuracionCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+  $scope.settings = { enableFriends: true };
 });
 
 
