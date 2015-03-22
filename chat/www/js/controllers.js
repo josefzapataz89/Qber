@@ -102,8 +102,6 @@ $scope.nuevo2 = {};
                  console.log('Error: ' + data);
               });
     };
-//---
-
 
 })
 
@@ -112,18 +110,30 @@ $scope.nuevo2 = {};
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
 /*--------------  HTTP conexion con el webService  --------------*/
-    $scope.contactos = Agenda.listarContactos();
+    console.log('cargando contactos del service');
+
+    $http.get('http://localhost:5000/api/agenda/jose@gmail.com')
+        .success(function(listaContactos){
+          console.log(listaContactos);
+          $scope.contactos = listaContactos;        
+        })
+        .error(function(error){
+          console.log(error);
+        });
 
     $scope.agregar = function(user){
-      if(user!== ""){
+      if(user !== null){
         console.log('si ta registrado');
         console.log(user);
         var contacto = {};
         contacto.nombre = user.nombre;
         contacto.correo = user.email;
-        contacto.status  = user.status;
-        contacto.imagen = user.face;
+        contacto.estado  = user.estado;
+        contacto.imagen = user.foto;
         Agenda.agregar(contacto);
+        $scope.nuevoContacto = {};
+        $scope.cerrarModal(3);
+        location.reload(true);            
       }
       else{
         console.log('no esta registrado');
@@ -132,7 +142,7 @@ $scope.nuevo2 = {};
     };
     $scope.borrarC = function(user){
       Agenda.eliminarContacto(user);
-      $scope.contactos = Agenda.listarContactos();
+      location.reload(true);
     };
 
     $scope.buscarCorreo = function(){
