@@ -77,20 +77,20 @@ angular.module('starter.services', ["LocalStorageModule"])
        };
   })
   
-.factory('Sesion', function(SesionStorageService){
+.factory('Sesion', function(localStorageService){
     var UsuarioConectado = {};
 
     UsuarioConectado.key = "Qber-UsuarioConectado";
 
     if(localStorageService.get(UsuarioConectado.key)){
-      UsuarioConectado.Usuario = SesionStorageService.get(UsuarioConectado.key);
+      UsuarioConectado.Usuario = localStorageService.get(UsuarioConectado.key);
     }
     else{
       UsuarioConectado.Usuario = [];
     }
 
     UsuarioConectado.updateLocalStorage = function(){
-      SesionStorageService.set(UsuarioConectado.key, UsuarioConectado.Usuario);
+      localStorageService.set(UsuarioConectado.key, UsuarioConectado.Usuario);
     };
 
     UsuarioConectado.agregar = function(nuevoContacto){
@@ -103,7 +103,6 @@ angular.module('starter.services', ["LocalStorageModule"])
         return Usuario !== item;
       });
       UsuarioConectado.updateLocalStorage();
-      return UsuarioConectado.listarContactos();
     };
 
     return UsuarioConectado;
@@ -111,23 +110,23 @@ angular.module('starter.services', ["LocalStorageModule"])
   })
 
 
-.service('LoginService', function($q, $http) {
+.service('LoginService', function($q, $http, Sesion) {
     return {
-        loginUser: function(name, pw) {
+        loginUser: function(correo, pw) {
             var deferred = $q.defer();
             var promise = deferred.promise;
 
-            $http.get('http://localhost:5000/api/usuarios/'+name)
+            $http.get('http://localhost:5000/api/usuarios/'+correo)
               .success(function(data){
-                console.log('si esta en la base de datos.... seguimos a comparar la contraseña');
-                if(data.contrasena==pw){
+                if(data && data.email== correo && data.contrasena==pw){
                   Sesion.agregar(data);
-                  deferred.resolve('Welcome ' + name + '!');
-                }  
+                  deferred.resolve('Bienvenido ' + correo + '!');
+                }
+                else{deferred.reject('Error al iniciar datos incorrectos.');}
               })
               .error(function(data){
                  console.log('Error: ' + data);
-                 deferred.reject('Wrong credentials.');
+                 
               });
  
             promise.success = function(fn) {

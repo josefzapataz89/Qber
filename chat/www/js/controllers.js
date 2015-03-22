@@ -1,12 +1,12 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http){
+.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http, Sesion){
 
 $scope.dataInicio = {};
 $scope.dataUsuario = {};
 $scope.nuevo = {};
 
-    $scope.Inicio = function(){
+    $scope.inicio = function(){
         console.log("LOGIN user: " + $scope.dataInicio.username+ " - PW: " + $scope.dataInicio.password);
 
         LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
@@ -232,8 +232,15 @@ $scope.nuevo2 = {};
   $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
 })
 
-.controller('configuracionCtrl', function($scope) {
+.controller('configuracionCtrl', function($scope, $state, Sesion) {
   $scope.settings = { enableFriends: true };
+
+      $scope.cerrarsesion = function(usuarioc){
+      console.log('cerrando sesion..');
+      console.log(usuarioc +' ha cerrado session');
+      Sesion.eliminar(usuarioc);
+      $state.go('inicio');
+    };
 });
 
 
