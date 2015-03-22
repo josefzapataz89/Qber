@@ -6,7 +6,7 @@ $scope.dataInicio = {};
 $scope.dataUsuario = {};
 $scope.nuevo = {};
 
-    $scope.inicio = function(){
+    $scope.Inicio = function(){
         console.log("LOGIN user: " + $scope.dataInicio.username+ " - PW: " + $scope.dataInicio.password);
 
         LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
