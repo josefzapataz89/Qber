@@ -220,7 +220,8 @@ $scope.nuevo2 = {};
       else $scope.modal4.show();
     };
 
-    $scope.abrirModal = function(index, destinatario){
+    $scope.abrirChat = function(destinatario){
+      console.log(destinatario);
       $scope.modal4.show();
       $scope.destinatario.nombre = destinatario.nombre;
       $scope.destinatario.correo = destinatario.correo;
