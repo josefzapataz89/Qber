@@ -66,6 +66,8 @@
               <span ng-show="signup_form.name.$error.maxlength">el nombre debe tener menos de 30 caracteres<br></span>
             </div>
 
+
+
             <div class="error" ng-show="signup_form.pin.$submitted || signup_form.pin.$touched || signup_form.pin.$dirty && signup_form.pin.$invalid">
               <span ng-show="signup_form.pin.$error.required">El campo pin es requerido<br></span>
               <span ng-show="signup_form.pin.$error.minlength">El pin numerico debe tener 4 dígitos<br></span>
