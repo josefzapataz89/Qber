@@ -1,5 +1,22 @@
 <ion-modal-view>
-    <ion-header-bar class='bar-positive'>
-      <h1 class=' title icon ion-chatbubble user-messages-top-icon'><div class='msg-header-username'>MIERD</div></h1> 
+    <ion-header-bar class='bar-positive'>    
+      <h1 class=' title icon ion-chatbubble user-messages-top-icon'><i class='msg-header-username' style="left: 13px;">{{destinatario.nombre}}</i></h1>
+      
+      <button class="button button-clear" ng-click="cerrarModal(4)">X</button>   
     </ion-header-bar>
+
+    <form name="sendMessageForm" ng-submit="agregarChat(sendMessageForm)" novalidate>
+              <ion-footer-bar class="bar-stable item-input-inset bar-footer" keyboard-attach>
+                  <label class="item-input-wrapper">
+                      <textarea ng-model="TextoMsj" value="" placeholder="Enviar mensaje a {{destinatario.nombre}}" required minlength="1" maxlength="1500" msd-elastic style= "width:100%; background:#f4f4f4;"></textarea>
+                  </label>
+                  <div class="footer-btn-wrap">
+                    <button class="button button-icon icon ion-android-textsms footer-btn" type="submit"
+                        ng-disabled="!TextoMsj || TextoMsj === ''" ng-click="UnirMensaje(destinatario,TextoMsj)">
+                    </button>
+                  </div>
+              </ion-footer-bar>
+          </form>
+
+
 </ion-modal-view>

@@ -148,10 +148,12 @@ $scope.nuevo2 = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda) {
+.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda, historialChat) {
   $scope.contactos = [];
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
+  $scope.destinatario = {};
+  $scope.mensajefinal = {};
 /*--------------  HTTP conexion con el webService  --------------*/
     console.log('cargando contactos del service');
 
@@ -219,16 +221,41 @@ $scope.nuevo2 = {};
       if(index == 3) $scope.modal3.show();
       else $scope.modal4.show();
     };
+
+    $scope.abrirModal = function(index, destinatario){
+      $scope.modal4.show();
+      $scope.destinatario.nombre = destinatario.nombre;
+      $scope.destinatario.correo = destinatario.correo;
+      $scope.destinatario.propietario = destinatario.propietario;
+   
+    };
+
   $scope.cerrarModal = function(index){
       if(index == 3) $scope.modal3.hide();
       else $scope.modal4.hide();
   };
+
   $scope.ejecutar = function(){
     console.log('ejecutando', $scope.contactos);
     $timeout(function(){
       $scope.modalNU.hide();
     },1000);
   };
+
+
+  $scope.UnirMensaje = function(datos,texto){
+    $scope.mensajefinal.remitente = datos.propietario;
+    $scope.mensajefinal.destinatario = datos.correo;
+    $scope.mensajefinal.mensaje = texto;
+   
+    $scope.TextoMsj = 'SE BORRA';
+
+    historialChat.agregarChat($scope.mensajefinal);
+
+
+  };
+
+
 })
 
 
