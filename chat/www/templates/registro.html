@@ -1,4 +1,7 @@
-<form name="signup_form" novalidate ng-submit="signupForm()">
+<body class="container" ng-controller="RegistrationController as registration">
+      
+
+<form name="signup_form" novalidate ng-submit="signupForm()" class="css-form">
 <ion-modal-view>
      <ion-header-bar>
        <div class="buttons">
@@ -8,80 +11,81 @@
        <h1 class="title">Registro de usuario</h1>
        
        <div class="buttons">
-       <button  class="button icon-right ion-chevron-right button-calm" type="submit" ng-click="agregarUsuario()">Registrar</button>
+       <button  ng-disabled="signup_form.$invalid" class="button icon-right ion-chevron-right button-calm" type="submit" ng-click="agregarUsuario()">Registrar</button>
        </div>
      </ion-header-bar>
      <ion-content>
            <ion-list>
-
-
                     
                 <label class="item item-input">
                      <span class="input-label">Nombre*</span>
-                     <input type="text" placeholder="Ingrese Nombre" name="name" class="input-label" ng-minlength=3 ng-maxlength=30 ng-model="dataUsuario.nombre" required="true">
+                     <input type="text" placeholder="Ingrese Nombre" name="name" class="input-label"  ng-minlength=3 ng-maxlength=30 ng-model="dataUsuario.nombre" required="true">
                 </label>
 
-                 <label class="item item-input">
-                     <span class="input-label">Foto de Perfil</span>
-                     <input type="text" ng-model="dataUsuario.foto">
-                    <div class="upload">
-                    <input type="file" class="button icon-right ion-ios-upload-outline" name="upload"/>
-                    </div>
-                </label>
 
                  <label class="item item-input">
                      <span class="input-label">Email*</span>
-                     <input type="text" placeholder="Ingrese email" name="email" class="input-label" ng-minlength=3 ng-maxlength=30 ng-pattern="/[\w-\.]{3,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/" ng-model="dataUsuario.email" required="true">
+                     <input type="email" placeholder="Ingrese email" name="email" class="input-label" ng-minlength=3 ng-maxlength=30 ng-pattern="^([da-z_.-]+)@([da-z.-]+).([a-z.]{2,6})$" ng-model="dataUsuario.email" required>
                 </label>
 
                  <label class="item item-input">
                      <span class="input-label">Contraseña*</span>
-                     <input type="password" ng-model="dataUsuario.contra" ng-pattern="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,10})$" placeholder="Ingrese contraseña" required="true">
+                     <input type="password" name="contra" ng-model="dataUsuario.contra"  placeholder="Ingrese contraseña" required="true">
                 </label>
 
                 <label class="item item-input">
                      <span class="input-label">Confirmar Contraseña*</span>
-                     <input type="password" ng-pattern="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,10})$" placeholder="Ingrese contraseña"ng-model="dataUsuario.contra2" required="true">
+                     <input type="password" name="contra2" placeholder="Ingrese contraseña" required compare-to="dataUsuario.contra" ng-model="dataUsuario.contra2" required="true">
                 </label>
 
                 <label class="item item-input">
                      <span class="input-label">PIN (chat privado)*</span>
-                     <input type="number" required="true" ng-pattern="^(?:\+|-)?\d+$" ng-model="dataUsuario.pin">
+                     <input type="number" name ="pin" ng-minlength=4 ng-maxlength=4 required="true" ng-pattern="^(?:\+|-)?\d+$" ng-model="dataUsuario.pin">
                 </label>
+                  <span name="rojo" style="color: #FF0000; text-align: center;">Todos los campos con (*) son obligatorios.</span>
 
-            <div clas="error" ng-show="signup_form.name.$dirty &&  signup_form.name.$invalid"
-               <small class="error"
-               ng-show="signup_form.name.$error.required">El campo nombre es requerido</small>
-
-                <small class="error"
-               ng-show="signup_form.name.$error.minlength">el nombre debe tener mas de tres caracteres</small>
-               <small class="error"
-               ng-show="signup_form.name.$error.mimaxlength">el nombre debe tener mas de tres caracteres</small>
-            </div>
+<style type="text/css">
+  .css-form input.ng-invalid.ng-touched {
+    background-color: #F5A9A9;
+  }
+  .css-form input.ng-valid.ng-touched {
+    background-color:#EFF8FB;
+  }
+</style>
  
-            <div clas="error" ng-show="signup_form.email.$dirty &&  signup_form.email.$invalid"
-               <small class="error"
-               ng-show="signup_form.email.$error.required">El campo email es requerido</small>
-                <small class="error"
-               ng-show="signup_form.email.$error.minlength">el nombre debe tener mas de tres caracteres</small>
-               <small class="error"
-               ng-show="signup_form.email.$error.maxlength">el nombre debe tener menos de 30 caracteres</small>
-               <small class="error"
-               ng-show="signup_form.email.$error.email">el formato del correo debe ser valido</small>
+            <div class="error" ng-show="signup_form.email.$submitted || signup_form.email.$touched || signup_form.email.$dirty && signup_form.email.$invalid">
+              <span ng-show="signup_form.email.$error.required">El campo nombre es requerido<br></span>
+              <span ng-show="signup_form.email.$error.email">el formato del correo debe ser valido<br></span>
+              <span ng-show="signup_form.email.$error.minlength">el correo debe tener mas de tres caracteres<br></span>
+              <span ng-show="signup_form.email.$error.maxlength">el correo debe tener menos de 30 caracteres<br></span>
             </div>
 
-            <div clas="error" ng-show="signup_form.email.$dirty &&  signup_form.email.$invalid"
-               <small class="error"
-               ng-show="signup_form.email.$error.required">El campo email es requerido</small>
-                <small class="error"
-               ng-show="signup_form.email.$error.minlength">el nombre debe tener mas de tres caracteres</small>
-               <small class="error"
-               ng-show="signup_form.email.$error.maxlength">el nombre debe tener menos de 30 caracteres</small>
-               <small class="error"
-               ng-show="signup_form.email.$error.email">el formato del correo debe ser valido</small>
+             <div class="error" ng-show="signup_form.name.$submitted || signup_form.name.$touched || signup_form.name.$dirty && signup_form.name.$invalid">
+              <span ng-show="signup_form.name.$error.required">El campo nombre es requerido<br></span>
+              <span ng-show="signup_form.name.$error.minlength">el nombre debe tener mas de tres caracteres<br></span>
+              <span ng-show="signup_form.name.$error.maxlength">el nombre debe tener menos de 30 caracteres<br></span>
             </div>
 
+            <div class="error" ng-show="signup_form.pin.$submitted || signup_form.pin.$touched || signup_form.pin.$dirty && signup_form.pin.$invalid">
+              <span ng-show="signup_form.pin.$error.required">El campo pin es requerido<br></span>
+              <span ng-show="signup_form.pin.$error.minlength">El pin numerico debe tener 4 dígitos<br></span>
+              <span ng-show="signup_form.pin.$error.maxlength">El pin numerico debe tener 4 dígitos<br></span>
+            </div>
 
+            <div class="error" ng-show="signup_form.contra2.$submitted || signup_form.contra2.$touched || signup_form.contra2.$dirty && signup_form.contra2.$invalid">
+            
+            <script language="JavaScript" type="text/javascript">
+            if(dataUsuario.contra=="ww"){
+               alert("Las contraseñas no coinciden");
+            }
+       
+ 
+            </script>
+              <span ng-show="signup_form.pin.$error.required">El campo pin es requerido<br></span>
+              <span ng-show="signup_form.pin.$error.minlength">El pin numerico debe tener 4 dígitos<br></span>
+              <span ng-show="signup_form.pin.$error.maxlength">El pin numerico debe tener 4 dígitos<br></span>
+            </div>
+            
 
 
 
@@ -89,3 +93,4 @@
      </ion-content>
 </ion-modal-view>
 </form>
+</body>
