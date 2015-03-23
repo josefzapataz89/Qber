@@ -1,9 +1,50 @@
 angular.module('starter.controllers', ['ionic'])
-
-.controller('loginCtrl', function($scope, $ionicModal, $state, $http){
-
+.value('USER',{
+  nombre:"nadie",
+  correo:"nadie",
+  estado:"nada",
+  id:-1
+})
+.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http, Sesion, USER){
+$scope.dataInicio = {};
 $scope.dataUsuario = {};
 $scope.nuevo = {};
+
+    $scope.inicio = function(){
+      console.log('usuariooooo'+$scope.dataInicio.username);
+        $http.get('http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username)
+        .success(function(data){
+          if(data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password){
+          console.log('data: '+data);
+          USER.nombre=data.nombre;
+          console.log('entroo');
+          USER.correo=data.email;
+          USER.estado=data.estado;
+          USER.id=data.id;   
+          console.log(USER);
+          $state.go('tab.chats');
+                }
+                else{
+        var alertPopup = $ionicPopup.alert({
+        title: 'Error al Iniciar!',
+        template: 'Porfavor Revisa tu usuario o contraseña!'
+        });
+                }
+  
+        })
+        .error(function(error){
+          console.log(error);
+        });
+
+     /*   LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
+        $state.go('tab.chats');
+        }).error(function(data) {
+        var alertPopup = $ionicPopup.alert({
+        title: 'Error al Iniciar!',
+        template: 'Porfavor Revisa tu usuario o contraseña!'
+        });
+        });*/
+    };
 
   $scope.agregarUsuario = function(){
     $scope.nuevo.nombre = $scope.dataUsuario.nombre;
@@ -189,7 +230,9 @@ $scope.nuevo2 = {};
 })
 
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, Chats, Sesion) {
+
+  
   $scope.chats = Chats.all();
 
   $scope.remove = function(chat) { 
@@ -199,25 +242,40 @@ $scope.nuevo2 = {};
 
 
 
-.controller('ChatsCtrl', function($scope) {
+.controller('ChatsCtrl', function($scope, Sesion) {
   
-
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
 //  $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('perfilCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('perfilCtrl', function($scope, $http, USER) {
 
-  $scope.status = 'Feliz <3';
-  $scope.nombre = 'Milagros Paredes';
-  $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
+  console.log(USER);
+             $scope.status = USER.estado;
+             $scope.nombre = USER.nombre;
+             $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
+               $scope.settings = {
+               enableFriends: true
+               };
 })
 
-.controller('configuracionCtrl', function($scope) {
+.controller('configuracionCtrl', function($scope, $state, USER) {
   $scope.settings = { enableFriends: true };
+    
+      $scope.cerrarsesion = function(usuarioc){
+      console.log('usuario: '+USER.nombre);
+      console.log('cerrando sesion..');
+      console.log(USER.nombre +' ha cerrado session');
+      USER.nombre="";
+      USER.correo="";
+      USER.estado="";
+      USER.id=-1;
+      console.log('usuario luego de eliminar: ');
+      console.log(USER);
+      $state.go('inicio');
+    };
 });
+
+

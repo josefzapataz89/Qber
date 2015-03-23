@@ -35,6 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       url: "/inicio",
       templateUrl: "templates/inicio.html",
       controller: 'loginCtrl'
+
     })
    
     .state('tab', {
@@ -73,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
+/*
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
@@ -83,7 +84,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
+*/
   .state('tab.perfil', {
     url: '/perfil',
     views: {
