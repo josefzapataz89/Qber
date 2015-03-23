@@ -47,7 +47,11 @@ $scope.nuevo = {};
     };
 
   $scope.agregarUsuario = function(){
+<<<<<<< HEAD
+    $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
+=======
     $scope.nuevo.nombre = $scope.dataUsuario.nombre;
+>>>>>>> MilagrosParedes/master
     $scope.nuevo.foto = $scope.dataUsuario.foto;
     $scope.nuevo.email = $scope.dataUsuario.email;
     $scope.nuevo.contrasena = $scope.dataUsuario.contra;
@@ -237,9 +241,13 @@ $scope.nuevo2 = {};
 
   $scope.remove = function(chat) { 
     Chats.remove(chat);
+<<<<<<< HEAD
+  }
+=======
   };
 })
 
+>>>>>>> MilagrosParedes/master
 
 
 .controller('ChatsCtrl', function($scope, Sesion) {
@@ -261,6 +269,16 @@ $scope.nuevo2 = {};
                };
 })
 
+<<<<<<< HEAD
+.controller('configuracionCtrl', function($scope) {
+<<<<<<< HEAD
+  $scope.settings = {
+    enableFriends: true
+  };
+=======
+  $scope.settings = { enableFriends: true };
+>>>>>>> MilagrosParedes/master
+=======
 .controller('configuracionCtrl', function($scope, $state, USER) {
   $scope.settings = { enableFriends: true };
     
@@ -276,6 +294,7 @@ $scope.nuevo2 = {};
       console.log(USER);
       $state.go('inicio');
     };
+>>>>>>> upstream/master
 });
 
 
