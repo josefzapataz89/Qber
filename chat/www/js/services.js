@@ -119,7 +119,6 @@ angular.module('starter.services', ["LocalStorageModule"])
             var promise = deferred.promise;
             var conectado = correo;
             Sesion.usuarioC = conectado;
-            console.log('lo que esta en usuario c..'+Sesion.UsuarioConectado);
 
             $http.get('http://localhost:5000/api/usuarios/'+correo)
               .success(function(data){

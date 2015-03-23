@@ -1,23 +1,49 @@
 angular.module('starter.controllers', ['ionic'])
-
-.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http, Sesion){
-Sesion.usuarioC=null;
+.value('USER',{
+  nombre:"nadie",
+  correo:"nadie",
+  estado:"nada",
+  id:-1
+})
+.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http, Sesion, USER){
 $scope.dataInicio = {};
 $scope.dataUsuario = {};
 $scope.nuevo = {};
-console.log('usuario conectado: '+ LoginService.loginUser().conectado);
+
     $scope.inicio = function(){
+      console.log('usuariooooo'+$scope.dataInicio.username);
+        $http.get('http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username)
+        .success(function(data){
+          if(data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password){
+          console.log('data: '+data);
+          USER.nombre=data.nombre;
+          console.log('entroo');
+          USER.correo=data.email;
+          USER.estado=data.estado;
+          USER.id=data.id;   
+          console.log(USER);
+          $state.go('tab.chats');
+                }
+                else{
+        var alertPopup = $ionicPopup.alert({
+        title: 'Error al Iniciar!',
+        template: 'Porfavor Revisa tu usuario o contraseña!'
+        });
+                }
+  
+        })
+        .error(function(error){
+          console.log(error);
+        });
 
-        console.log("LOGIN user: " + $scope.dataInicio.username+ " - PW: " + $scope.dataInicio.password);
-
-        LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
+     /*   LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
         $state.go('tab.chats');
         }).error(function(data) {
         var alertPopup = $ionicPopup.alert({
         title: 'Error al Iniciar!',
         template: 'Porfavor Revisa tu usuario o contraseña!'
         });
-        });
+        });*/
     };
 
   $scope.agregarUsuario = function(){
@@ -218,48 +244,36 @@ $scope.nuevo2 = {};
 
 .controller('ChatsCtrl', function($scope, Sesion) {
   
-console.log('usuario conectado: '+ Sesion.usuarioC);
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
 //  $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('perfilCtrl', function($scope, $http, Sesion) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('perfilCtrl', function($scope, $http, USER) {
 
-  $http.get('http://localhost:5000/api/usuarios/'+Sesion.usuarioC)
-              .success(function(data){
-             
-             $scope.status = data.estado;
-             $scope.nombre = data.nombre;
-
-              })
-              .error(function(data){
-                 console.log('Error: ' + data);
-                 
-              });
-
- // $scope.status = 'Feliz <3';
-  //$scope.nombre = 'Milagros Paredes';
-  $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
+  console.log(USER);
+             $scope.status = USER.estado;
+             $scope.nombre = USER.nombre;
+             $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
+               $scope.settings = {
+               enableFriends: true
+               };
 })
 
-.controller('configuracionCtrl', function($scope, $state, LoginService, Sesion) {
+.controller('configuracionCtrl', function($scope, $state, USER) {
   $scope.settings = { enableFriends: true };
-    $scope.Userconectado = Sesion.usuarioC;
-    console.log('entroooooooooooooooo '+$scope.Userconectado);
     
       $scope.cerrarsesion = function(usuarioc){
-      console.log('usuario: '+$scope.Userconectado);
+      console.log('usuario: '+USER.nombre);
       console.log('cerrando sesion..');
-      console.log(usuarioc +' ha cerrado session');
-      Sesion.eliminar(usuarioc);
-      $scope.Userconectado = {};
-      Sesion.usuarioC=null;
-      console.log('usuario luego de eliminar: '+Sesion.Userconectado);
+      console.log(USER.nombre +' ha cerrado session');
+      USER.nombre="";
+      USER.correo="";
+      USER.estado="";
+      USER.id=-1;
+      console.log('usuario luego de eliminar: ');
+      console.log(USER);
       $state.go('inicio');
     };
 });
