@@ -15,21 +15,21 @@ $scope.nuevo = {};
         $http.get('http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username)
         .success(function(data){
           if(data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password){
-          console.log('data: '+data);
-          USER.nombre=data.nombre;
-          console.log('entroo');
-          USER.correo=data.email;
-          USER.estado=data.estado;
-          USER.id=data.id;   
-          console.log(USER);
-          $state.go('tab.chats');
-                }
-                else{
-        var alertPopup = $ionicPopup.alert({
-        title: 'Error al Iniciar!',
-        template: 'Porfavor Revisa tu usuario o contraseña!'
-        });
-                }
+            console.log('data: '+data);
+            USER.nombre=data.nombre;
+            console.log('entroo');
+            USER.correo=data.email;
+            USER.estado=data.estado;
+            USER.id=data.id;   
+            console.log(USER);
+            $state.go('tab.chats');
+          }
+          else{
+            var alertPopup = $ionicPopup.alert({
+            title: 'Error al Iniciar!',
+            template: 'Porfavor Revisa tu usuario o contraseña!'
+            });
+          }
   
         })
         .error(function(error){
@@ -67,6 +67,8 @@ $scope.nuevo = {};
         })
       .success(function(data){
         console.log(data);
+        $scope.dataUsuario = {};
+        $scope.cerrarModal(1);
       })
       .error(function(err){
         console.log(err);
@@ -217,6 +219,19 @@ $scope.nuevo2 = {};
       if(index == 3) $scope.modal3.show();
       else $scope.modal4.show();
     };
+<<<<<<< HEAD
+=======
+
+    $scope.abrirChat = function(destinatario){
+      $scope.modal4.show();
+      console.log(destinatario.nombre);
+      $scope.destinatario.nombre = destinatario.nombre;
+      $scope.destinatario.correo = destinatario.correo;
+      $scope.destinatario.propietario = destinatario.propietario;
+   
+    };
+
+>>>>>>> upstream/master
   $scope.cerrarModal = function(index){
       if(index == 3) $scope.modal3.hide();
       else $scope.modal4.hide();
@@ -238,10 +253,6 @@ $scope.nuevo2 = {};
   $scope.remove = function(chat) { 
     Chats.remove(chat);
   };
-})
-
-.controller('ChatsCtrl', function($scope, Sesion) {
-  
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
