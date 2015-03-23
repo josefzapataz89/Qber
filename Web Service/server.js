@@ -59,6 +59,13 @@ router.route('/usuarios')
 				res.send(err);
 			res.json(Usuarios);
 		});
+	})
+	.delete(function(req, res){
+		Usuario.remove(function(err, users){
+			if(err)
+				res.send(err);
+			res.json(users);
+		});
 	});
 router.route('/usuarios/:correo')
 	.get(function(req, res){

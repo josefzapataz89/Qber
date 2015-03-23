@@ -6,7 +6,12 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'directives'])
-
+.value('USER',{
+  nombre:"",
+  correo:"",
+  estado:"",
+  id:-1
+})
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -74,7 +79,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-/*
+//ojo agregado
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
@@ -84,7 +89,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-*/
+//fin
   .state('tab.perfil', {
     url: '/perfil',
     views: {
