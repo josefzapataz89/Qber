@@ -22,6 +22,7 @@
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
+
 @font-face {
   font-family: "Ionicons";
   src: url("../fonts/ionicons.eot?v=2.0.1");
@@ -7586,3 +7587,49 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+/*se le metio mano*/
+
+.chat-bubble { 
+    background-color:#EDEDED;
+    border:2px solid #666666;   
+    font-size:35px;   
+    line-height:1.3em;  
+    margin:10px auto;   
+    padding:10px;   
+    position:relative;   
+    text-align:center;  
+    width:300px;   
+    -moz-border-radius:10px;  
+    -webkit-border-radius:10px;   
+    -moz-box-shadow:0 0 5px #888888;   
+    -webkit-box-shadow:0 0 5px #888888; 
+ } 
+.chat-bubble-arrow-border {   
+    border-color: #666666 transparent transparent transparent; 
+    border-style: solid;   
+    border-width: 10px;   
+    height:0;   
+    width:0;   
+    position:absolute;     
+    bottom:-22px;   
+    left:30px; 
+} 
+.chat-bubble-arrow {   
+    border-color: #EDEDED transparent transparent transparent; 
+    border-style: solid;  
+    border-width: 10px;  
+    height:0;  
+    width:0;   
+    position:absolute;   
+    bottom:-19px;   
+    left:30px; 
+}
+
+/* IE6 */
+.chat-bubble-arrow {
+    _border-left-color: pink;
+    _border-bottom-color: pink;
+    _border-right-color: pink;
+    _filter: chroma(color=pink);
+}

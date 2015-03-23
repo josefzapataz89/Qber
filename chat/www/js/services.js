@@ -57,6 +57,7 @@ angular.module('starter.services', ["LocalStorageModule"])
         localStorageService.set(chats.key, chats.mensajes);
        };
        chats.agregarChat = function(nuevoMensaje){
+        console.log(nuevoMensaje);
         chats.mensajes.push(nuevoMensaje);
         chats.actualizarChats();
        };
@@ -75,6 +76,7 @@ angular.module('starter.services', ["LocalStorageModule"])
         chats.actualizarChats();
         return cargarChats();
        };
+       return chats;
   })
   
 .factory('Sesion', function(localStorageService){
@@ -146,3 +148,4 @@ angular.module('starter.services', ["LocalStorageModule"])
     }
 })
   ;
+

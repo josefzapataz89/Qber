@@ -15,6 +15,7 @@ $scope.nuevo = {};
         $http.get('http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username)
         .success(function(data){
           if(data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password){
+
               console.log('usuario validado con la base de datos..');
           USER.correo=data.email;
           USER.estado=data.estado;
@@ -36,17 +37,10 @@ $scope.nuevo = {};
           console.log(error);
         });
 
-     /*   LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
-        $state.go('tab.chats');
-        }).error(function(data) {
-        var alertPopup = $ionicPopup.alert({
-        title: 'Error al Iniciar!',
-        template: 'Porfavor Revisa tu usuario o contraseña!'
-        });
-        });*/
     };
 
   $scope.agregarUsuario = function(){
+    $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
     $scope.nuevo.nombre = $scope.dataUsuario.nombre;
     $scope.nuevo.foto = $scope.dataUsuario.foto;
     $scope.nuevo.email = $scope.dataUsuario.email;
@@ -66,6 +60,8 @@ $scope.nuevo = {};
         })
       .success(function(data){
         console.log(data);
+        $scope.dataUsuario = {};
+        $scope.cerrarModal(1);
       })
       .error(function(err){
         console.log(err);
@@ -104,7 +100,6 @@ $scope.nuevo = {};
       else $scope.modal2.show();
   };
 
-//---
 $scope.usuario = [];
 $scope.nuevousuario = {};
 $scope.nuevo2 = {};
@@ -146,10 +141,12 @@ $scope.nuevo2 = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda) {
+.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda, historialChat) {
   $scope.contactos = [];
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
+  $scope.destinatario = {};
+  $scope.mensajefinal = {};
 /*--------------  HTTP conexion con el webService  --------------*/
     console.log('cargando contactos del service');
 
@@ -218,16 +215,42 @@ $scope.nuevo2 = {};
       if(index == 3) $scope.modal3.show();
       else $scope.modal4.show();
     };
+
+    $scope.abrirChat = function(destinatario){
+      $scope.modal4.show();
+      console.log(destinatario.nombre);
+      $scope.destinatario.nombre = destinatario.nombre;
+      $scope.destinatario.correo = destinatario.correo;
+      $scope.destinatario.propietario = destinatario.propietario;
+   
+    };
+
   $scope.cerrarModal = function(index){
       if(index == 3) $scope.modal3.hide();
       else $scope.modal4.hide();
   };
+
   $scope.ejecutar = function(){
     console.log('ejecutando', $scope.contactos);
     $timeout(function(){
       $scope.modalNU.hide();
     },1000);
   };
+
+
+  $scope.UnirMensaje = function(datos,texto){
+    $scope.mensajefinal.remitente = datos.propietario;
+    $scope.mensajefinal.destinatario = datos.correo;
+    $scope.mensajefinal.mensaje = texto;
+   
+    $scope.TextoMsj = 'SE BORRA';
+
+    historialChat.agregarChat($scope.mensajefinal);
+
+
+  };
+
+
 })
 
 
@@ -240,9 +263,6 @@ $scope.nuevo2 = {};
     Chats.remove(chat);
   };
 })
-
-
-
 .controller('ChatsCtrl', function($scope) {
   
 })
@@ -261,6 +281,12 @@ $scope.nuevo2 = {};
                     
 })
 
+.controller('configuracionCtrl', function($scope) {
+  $scope.settings = {
+    enableFriends: true
+  };
+  $scope.settings = { enableFriends: true };
+})
 .controller('configuracionCtrl', function($scope, $state, USER) {
   $scope.settings = { enableFriends: true };
     
