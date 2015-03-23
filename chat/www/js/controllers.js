@@ -141,14 +141,14 @@ $scope.nuevo2 = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda) {
+.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda,USER) {
   $scope.contactos = [];
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
 /*--------------  HTTP conexion con el webService  --------------*/
     console.log('cargando contactos del service');
 
-    $http.get('http://localhost:5000/api/agenda/jose@gmail.com')
+    $http.get('http://localhost:5000/api/agenda/' + USER.correo)
         .success(function(listaContactos){
           console.log(listaContactos);
           $scope.contactos = listaContactos;        
@@ -213,8 +213,7 @@ $scope.nuevo2 = {};
       if(index == 3) $scope.modal3.show();
       else $scope.modal4.show();
     };
-<<<<<<< HEAD
-=======
+
 
     $scope.abrirChat = function(destinatario){
       $scope.modal4.show();
@@ -225,7 +224,7 @@ $scope.nuevo2 = {};
    
     };
 
->>>>>>> upstream/master
+
   $scope.cerrarModal = function(index){
       if(index == 3) $scope.modal3.hide();
       else $scope.modal4.hide();
