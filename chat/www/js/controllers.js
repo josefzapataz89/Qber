@@ -1,8 +1,8 @@
 angular.module('starter.controllers', ['ionic'])
 .value('USER',{
-  nombre:"nadie",
-  correo:"nadie",
-  estado:"nada",
+  nombre:"",
+  correo:"",
+  estado:"",
   id:-1
 })
 .controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http, Sesion, USER){
@@ -11,16 +11,16 @@ $scope.dataUsuario = {};
 $scope.nuevo = {};
 
     $scope.inicio = function(){
-      console.log('usuariooooo'+$scope.dataInicio.username);
+      console.log('BIENVENIDO: '+$scope.dataInicio.username);
         $http.get('http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username)
         .success(function(data){
           if(data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password){
-          console.log('data: '+data);
-          USER.nombre=data.nombre;
-          console.log('entroo');
+              console.log('usuario validado con la base de datos..');
           USER.correo=data.email;
           USER.estado=data.estado;
-          USER.id=data.id;   
+          USER.id=data.id; 
+          USER.nombre=data.nombre;
+          console.log('datos del objeto:');
           console.log(USER);
           $state.go('tab.chats');
                 }
@@ -174,7 +174,8 @@ $scope.nuevo2 = {};
         Agenda.agregar(contacto);
         $scope.nuevoContacto = {};
         $scope.cerrarModal(3);
-        location.reload(true);            
+        location.reload(true); 
+
       }
       else{
         console.log('no esta registrado');
@@ -230,7 +231,7 @@ $scope.nuevo2 = {};
 })
 
 
-.controller('ChatsCtrl', function($scope, Chats, Sesion) {
+.controller('ChatsCtrl', function($scope, Chats) {
 
   
   $scope.chats = Chats.all();
@@ -242,7 +243,7 @@ $scope.nuevo2 = {};
 
 
 
-.controller('ChatsCtrl', function($scope, Sesion) {
+.controller('ChatsCtrl', function($scope) {
   
 })
 
@@ -251,14 +252,13 @@ $scope.nuevo2 = {};
 })
 
 .controller('perfilCtrl', function($scope, $http, USER) {
-
-  console.log(USER);
+           $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
+    
+            console.log('entrando a perfil... datos: Nombre:'+USER.nombre+' Correo: '+USER.correo);
              $scope.status = USER.estado;
              $scope.nombre = USER.nombre;
-             $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
-               $scope.settings = {
-               enableFriends: true
-               };
+             $scope.settings ={enableFriends: true};
+                    
 })
 
 .controller('configuracionCtrl', function($scope, $state, USER) {
