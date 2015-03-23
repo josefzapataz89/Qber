@@ -9,18 +9,18 @@
   </ion-item>
 
 
-		<ion-toggle>
+		<ion-toggle name="privadas">
 		Privadas
 		<br>
 		Activar Notificaciones de chats privados
 		</ion-toggle>
 
 
-		<ion-toggle>
+		<ion-toggle name="sonido">
 		Sonido
 		</ion-toggle>
 
-		<ion-toggle>
+		<ion-toggle name="vibrar">
 		Vibrar
 		</ion-toggle>
 
@@ -70,6 +70,14 @@
 		Eliminar todos los chats
 		</a>
 
+		<ion-item item-input>
+		<ion-button-bar>
+		<a class="button button-block button-clear button-positive" ng-click="cerrarsesion(Userconectado)">
+		CERRAR SESSION
+		</a>
+		</ion-button-bar>
+		</ion-item>
+		
 </ion-list>
   </ion-content>
 </ion-view>

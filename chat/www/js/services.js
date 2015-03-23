@@ -1,47 +1,47 @@
 angular.module('starter.services', ["LocalStorageModule"])
 
-  .factory('Agenda', function(localStorageService){
+  .factory('Agenda', function($http){
+    var contactos = [];
     var agenda = {};
 
-    agenda.key = "Qber-agenda";
-
-    if(localStorageService.get(agenda.key)){
-      agenda.contactos = localStorageService.get(agenda.key);
-    }
-    else{
-      agenda.contactos = [];
-    }
-
-    agenda.actualizarListaContactos = function(){
-      localStorageService.set(agenda.key, agenda.contactos);
-    };
-
     agenda.agregar = function(nuevoContacto){
-      agenda.contactos.push(nuevoContacto);
-      agenda.actualizarListaContactos();
-    };
-
-    agenda.listarContactos = function(){
-      return agenda.contactos;
+      nuevoContacto.propietario = "jose@gmail.com";
+      $http.post('http://localhost:5000/api/agenda', nuevoContacto)
+        .success(function(data){
+          console.log('agrego contacto');
+          console.log(data);
+        })
+        .error(function(error){
+          console.log(error);
+        });
     };
 
     agenda.limpiar = function(){
-      agenda.contactos = [];
-      agenda.actualizarListaContactos();
-      return agenda.listarContactos();
+      $http.delete('http://localhost:5000/api/agenda/jose@gmail.com')
+        .success(function(data){
+          console.log('borrando lista de contactos');
+          console.log(data);
+        })
+        .error(function(error){
+          console.log(error);
+        });
     };
 
     agenda.eliminarContacto = function(item){
-      agenda.contactos = agenda.contactos.filter(function(contacto){
-        return contacto !== item;
-      });
-      agenda.actualizarListaContactos();
-      return agenda.listarContactos();
+      $http.delete('http://localhost:5000/api/agenda/jose@gmail.com/'+item.correo)
+        .success(function(data){
+          console.log('eliminando un contacto');
+          console.log(data);
+        })
+        .error(function(err){
+          console.log(err);
+        });
     };
 
     return agenda;
 
   })
+
   .factory('historialChat', function(localStorageService){
        var chats = {};
 
@@ -76,4 +76,73 @@ angular.module('starter.services', ["LocalStorageModule"])
         return cargarChats();
        };
   })
-;
+  
+.factory('Sesion', function(localStorageService){
+    var UsuarioConectado = {};
+    var usuarioC=null;
+
+    UsuarioConectado.key = "Qber-UsuarioConectado";
+
+    if(localStorageService.get(UsuarioConectado.key)){
+      UsuarioConectado.Usuario = localStorageService.get(UsuarioConectado.key);
+    }
+    else{
+      UsuarioConectado.Usuario = [];
+    }
+
+    UsuarioConectado.updateLocalStorage = function(){
+      localStorageService.set(UsuarioConectado.key, UsuarioConectado.Usuario);
+    };
+
+    UsuarioConectado.agregar = function(nuevoContacto){
+      UsuarioConectado.Usuario.push(nuevoContacto);
+      UsuarioConectado.updateLocalStorage();
+    };
+
+    UsuarioConectado.eliminar = function(item){
+      UsuarioConectado.Usuario = UsuarioConectado.Usuario.filter(function(Usuario){
+        usuarioC=null;
+        return Usuario !== item;
+      });
+      UsuarioConectado.updateLocalStorage();
+    };
+
+    return UsuarioConectado;
+
+  })
+
+
+.service('LoginService', function($q, $http, Sesion) {
+    return {
+        loginUser: function(correo, pw) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var conectado = correo;
+            Sesion.usuarioC = conectado;
+
+            $http.get('http://localhost:5000/api/usuarios/'+correo)
+              .success(function(data){
+                if(data && data.email== correo && data.contrasena==pw){
+                  Sesion.agregar(data);
+                  deferred.resolve('Bienvenido ' + correo + '!');
+                }
+                else{deferred.reject('Error al iniciar datos incorrectos.');}
+              })
+              .error(function(data){
+                 console.log('Error: ' + data);
+                 
+              });
+ 
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+    }
+})
+  ;

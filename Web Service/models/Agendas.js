@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 
 var AGENDA = new Schema({
     propietario: String,
-    contacto: String
+    nombre: String,
+    foto: String,
+    correo: String,
+    estado: String
 });
 
 module.exports = mongoose.model('Agenda', AGENDA);

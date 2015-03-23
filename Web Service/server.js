@@ -138,6 +138,58 @@ router.route('/chats/receptor/:destinatario')
 			res.json(msgs);
 		});
 	});
+router.route('/agenda')
+	.post(function(req, res){
+		var contacto = new Agenda();
+		contacto.propietario = req.body.propietario;
+		contacto.nombre = req.body.nombre;
+		contacto.foto = req.body.foto;
+		contacto.correo = req.body.correo;
+		contacto.estado = req.body.estado;
+
+		contacto.save(function(err, contactos){
+			if(err)
+				re.send(err);
+			res.json(contactos);
+		});
+	})
+	.get(function(req, res){
+		Agenda.find(function(err, contactos){
+			if(err)
+				res.send(err);
+			res.json(contactos);
+		});
+	})
+	.delete(function(req, res){
+		Agenda.remove(function(err, contacts){
+			if(err)
+				res.send(err);
+			res.json(contacts);
+		});
+	});
+router.route('/agenda/:usuario')
+	.get(function(req, res){
+		Agenda.find({'propietario': req.params.usuario}, function(err, contactos){
+			if(err)
+				res.send(err);
+			res.json(contactos);
+		});
+	})
+	.delete(function(req, res){
+		Agenda.remove({'propietario': req.params.usuario}, function(err, contactos){
+			if(err)
+				res.send(err);
+			res.json(contactos);
+		});
+	});
+router.route('/agenda/:propietario/:contacto')
+	.delete(function(req, res){
+		Agenda.remove({'propietario': req.params.propietario, 'correo':req.params.contacto}, function(err, contacts){
+			if(err)
+				res.send(err);
+			res.json(contacts);
+		});
+	});
 
 app.use('/api', router);
 
