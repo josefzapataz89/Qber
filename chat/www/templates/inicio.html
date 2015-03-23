@@ -1,21 +1,24 @@
 <ion-view title="Inicio de sesión">
 	<ion-content>
+
 		<ion-list>
 			<ion-item item-input item-stacked-label>
-				<span class="input-label">Usuario</span>
-				<input type="text" placeholder="Nombre de usuario">
+				<span class="input-label">Correo de Usuario</span>
+				<input type="text" placeholder="Nombre de usuario" ng-model="dataInicio.username">
 			</ion-item>
 			<ion-item item-input item-stacked-label>
 				<span class="input-label">Contraseña</span>
-				<input type="text" placeholder="Contraseña">
+				<input type="password" placeholder="Contraseña" ng-model="dataInicio.password">
+
 			</ion-item>
 			<ion-item item-input>
 				<ion-button-bar>
-					<a  href="#/tab/chats" class="button button-block button-clear button-positive"> Entrar <i class=" icon-left ion-android-arrow-dropright-circle"></i></a>
+					<a class="button button-block button-clear button-positive" ng-click="inicio()"> Entrar <i class=" icon-left ion-android-arrow-dropright-circle"></i></a>
 					<a  class="button button-block button-clear button-positive" ng-click="abrirModal(2)"> Olvidaste la contraseña?</a>
 					<a  class="button button-block button-clear button-positive" ng-click="abrirModal(1)"> No tienes una cuenta. Registrate <i class=""></i></a>
 				</ion-button-bar>
 			</ion-item>
 		</ion-list>
+
 	</ion-content>		
 </ion-view>
