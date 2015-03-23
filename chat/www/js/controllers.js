@@ -6,7 +6,11 @@ $scope.dataUsuario = {};
 $scope.nuevo = {};
 
   $scope.agregarUsuario = function(){
+<<<<<<< HEAD
     $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
+=======
+    $scope.nuevo.nombre = $scope.dataUsuario.nombre;
+>>>>>>> MilagrosParedes/master
     $scope.nuevo.foto = $scope.dataUsuario.foto;
     $scope.nuevo.email = $scope.dataUsuario.email;
     $scope.nuevo.contrasena = $scope.dataUsuario.contra;
@@ -74,13 +78,13 @@ $scope.nuevo2 = {};
      //$scope.nuevo2 = per;
      alert('le entro');
 
-    $http.post('http://localhost:5000/usuarios', $scope.nuevousuario)
-    .success(function(data){
-    console.log(data);
-    })
-    .error(function(per){
-      console.log('Error: ' + per);
-    });
+    $http.post('http://localhost:5000/api/usuarios', $scope.nuevousuario)
+      .success(function(data){
+      console.log(data);
+      })
+      .error(function(per){
+        console.log('Error: ' + per);
+      });
 
 
      // console.log($scope.nuevo2.nombre);
@@ -88,7 +92,7 @@ $scope.nuevo2 = {};
 
     $scope.validarcorreo = function(){
 
-        $http.get('http://localhost:5000/usuarios/' + $scope.nuevousuario.email)
+        $http.get('http://localhost:5000/api/usuarios/' + $scope.nuevousuario.email)
               .success(function(data){
 
                 if(data  == ""){
@@ -136,7 +140,7 @@ $scope.nuevo2 = {};
     };
 
     $scope.buscarCorreo = function(){
-        $http.get('http://localhost:5000/usuarios/'+$scope.nuevoContacto.correo)
+        $http.get('http://localhost:5000/api/usuarios/'+$scope.nuevoContacto.correo)
               .success(function(data){
                   $scope.agregar(data);
               })
@@ -181,9 +185,16 @@ $scope.nuevo2 = {};
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
+
   $scope.remove = function(chat) { 
     Chats.remove(chat);
+<<<<<<< HEAD
   }
+=======
+  };
+})
+
+>>>>>>> MilagrosParedes/master
 
 
 .controller('ChatsCtrl', function($scope) {
@@ -206,7 +217,11 @@ $scope.nuevo2 = {};
 })
 
 .controller('configuracionCtrl', function($scope) {
+<<<<<<< HEAD
   $scope.settings = {
     enableFriends: true
   };
+=======
+  $scope.settings = { enableFriends: true };
+>>>>>>> MilagrosParedes/master
 });
