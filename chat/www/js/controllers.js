@@ -222,8 +222,9 @@ $scope.nuevo2 = {};
       else $scope.modal4.show();
     };
 
-    $scope.abrirModal = function(index, destinatario){
+    $scope.abrirChat = function(destinatario){
       $scope.modal4.show();
+      console.log(destinatario.nombre);
       $scope.destinatario.nombre = destinatario.nombre;
       $scope.destinatario.correo = destinatario.correo;
       $scope.destinatario.propietario = destinatario.propietario;
