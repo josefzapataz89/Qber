@@ -216,6 +216,10 @@ $scope.nuevo2 = {};
 
 
     $scope.abrirChat = function(destinatario){
+<<<<<<< HEAD
+      console.log(destinatario);
+=======
+>>>>>>> origin/master
       $scope.modal4.show();
       console.log(destinatario.nombre);
       $scope.destinatario.nombre = destinatario.nombre;
