@@ -79,6 +79,7 @@ angular.module('starter.services', ["LocalStorageModule"])
   
 .factory('Sesion', function(localStorageService){
     var UsuarioConectado = {};
+    var usuarioC=null;
 
     UsuarioConectado.key = "Qber-UsuarioConectado";
 
@@ -100,6 +101,7 @@ angular.module('starter.services', ["LocalStorageModule"])
 
     UsuarioConectado.eliminar = function(item){
       UsuarioConectado.Usuario = UsuarioConectado.Usuario.filter(function(Usuario){
+        usuarioC=null;
         return Usuario !== item;
       });
       UsuarioConectado.updateLocalStorage();
@@ -115,6 +117,9 @@ angular.module('starter.services', ["LocalStorageModule"])
         loginUser: function(correo, pw) {
             var deferred = $q.defer();
             var promise = deferred.promise;
+            var conectado = correo;
+            Sesion.usuarioC = conectado;
+            console.log('lo que esta en usuario c..'+Sesion.UsuarioConectado);
 
             $http.get('http://localhost:5000/api/usuarios/'+correo)
               .success(function(data){

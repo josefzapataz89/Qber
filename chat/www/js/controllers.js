@@ -1,12 +1,13 @@
 angular.module('starter.controllers', ['ionic'])
 
 .controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http, Sesion){
-
+Sesion.usuarioC=null;
 $scope.dataInicio = {};
 $scope.dataUsuario = {};
 $scope.nuevo = {};
-
+console.log('usuario conectado: '+ LoginService.loginUser().conectado);
     $scope.inicio = function(){
+
         console.log("LOGIN user: " + $scope.dataInicio.username+ " - PW: " + $scope.dataInicio.password);
 
         LoginService.loginUser($scope.dataInicio.username, $scope.dataInicio.password).success(function(data) {
@@ -203,7 +204,9 @@ $scope.nuevo2 = {};
 })
 
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, Chats, Sesion) {
+
+  
   $scope.chats = Chats.all();
 
   $scope.remove = function(chat) { 
@@ -213,32 +216,50 @@ $scope.nuevo2 = {};
 
 
 
-.controller('ChatsCtrl', function($scope) {
+.controller('ChatsCtrl', function($scope, Sesion) {
   
-
+console.log('usuario conectado: '+ Sesion.usuarioC);
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
 //  $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('perfilCtrl', function($scope) {
+.controller('perfilCtrl', function($scope, $http, Sesion) {
   $scope.settings = {
     enableFriends: true
   };
 
-  $scope.status = 'Feliz <3';
-  $scope.nombre = 'Milagros Paredes';
+  $http.get('http://localhost:5000/api/usuarios/'+Sesion.usuarioC)
+              .success(function(data){
+             
+             $scope.status = data.estado;
+             $scope.nombre = data.nombre;
+
+              })
+              .error(function(data){
+                 console.log('Error: ' + data);
+                 
+              });
+
+ // $scope.status = 'Feliz <3';
+  //$scope.nombre = 'Milagros Paredes';
   $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
 })
 
-.controller('configuracionCtrl', function($scope, $state, Sesion) {
+.controller('configuracionCtrl', function($scope, $state, LoginService, Sesion) {
   $scope.settings = { enableFriends: true };
-
+    $scope.Userconectado = Sesion.usuarioC;
+    console.log('entroooooooooooooooo '+$scope.Userconectado);
+    
       $scope.cerrarsesion = function(usuarioc){
+      console.log('usuario: '+$scope.Userconectado);
       console.log('cerrando sesion..');
       console.log(usuarioc +' ha cerrado session');
       Sesion.eliminar(usuarioc);
+      $scope.Userconectado = {};
+      Sesion.usuarioC=null;
+      console.log('usuario luego de eliminar: '+Sesion.Userconectado);
       $state.go('inicio');
     };
 });
