@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-/*
+//ojo agregado
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
@@ -84,7 +84,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-*/
+//fin
   .state('tab.perfil', {
     url: '/perfil',
     views: {
