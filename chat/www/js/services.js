@@ -42,40 +42,52 @@ angular.module('starter.services', ["LocalStorageModule"])
 
   })
 
-  .factory('historialChat', function(localStorageService){
+  .factory('historialChat', function($http, USER){
        var chats = {};
 
-       chats.key = "Qber-mensaje";
+       var mensajes = [];
+       var conversaciones = [];
 
-       if(localStorageService.get(chats.key)){
-        chats.mensaje = localStorageService.get(chats.key);
-       }
-       else{
-        chats.mensajes = [];
-       }
-       chats.actualizarChats = function(){
-        localStorageService.set(chats.key, chats.mensajes);
+       chats.cargar = function(datos){
+        conversaciones = datos;
        };
-       chats.agregarChat = function(nuevoMensaje){
-        console.log(nuevoMensaje);
-        chats.mensajes.push(nuevoMensaje);
-        chats.actualizarChats();
+
+       chats.actualizar = function(){
+        return conversaciones;
        };
-       chats.cargarChats = function(){
-        return chats.mensajes;
+
+       chats.listarMensajes = function(contacto){
+        $http.get('http://localhost:5000/api/chats/'+USER.correo+'/'+contacto.correo)
+          .success(function(chat){
+            mensajes = chat;
+          })
+          .error(function(err){
+            console.log(err);
+          });
        };
-       chats.limpiarHistorial = function(){
-        chats.mensajes = [];
-        chats.actualizarChats();
-        return chats.cargarChats();
+
+       chats.listarConversaciones = function(){
+        $http.get('http://localhost:5000/api/chats')
+          .success(function(convers){
+            console.log('chats');
+            console.log(convers);
+            chats.cargar(convers);
+          })
+          .error(function(err){
+            console.log(err);
+          });
        };
-       chats.eliminarChat = function(chat){
-        chats.mensajes = chats.mensajes.filter(function(mensaje){
-          return mensaje !== chat;
-        });
-        chats.actualizarChats();
-        return cargarChats();
+
+       chats.subirMensaje = function(mensaje){
+        $post('http://localhost:5000/api/chats', mensaje)
+          .success(function(data){
+            console.log(data);
+          })
+          .error(function(err){
+            console.log(err);
+          });
        };
+       
        return chats;
   })
   
