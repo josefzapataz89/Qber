@@ -90,6 +90,10 @@ angular.module('starter.services', ["LocalStorageModule"])
        
        return chats;
   })
+/*
+.factory('variableG',function($scope, $http){
+var conectado = 
+})*/
 
 .factory('UserService', function() {
   var User = {};
@@ -105,5 +109,78 @@ angular.module('starter.services', ["LocalStorageModule"])
 
   return User;
 })
+  /*
+.factory('Sesion', function(localStorageService){
+    var UsuarioConectado = {};
+    var usuarioC;
+
+    UsuarioConectado.key = "Qber-UsuarioConectado";
+
+    if(localStorageService.get(UsuarioConectado.key)){
+      UsuarioConectado.Usuario = localStorageService.get(UsuarioConectado.key);
+    }
+    else{
+      UsuarioConectado.Usuario = [];
+    }
+
+    UsuarioConectado.updateLocalStorage = function(){
+      localStorageService.set(UsuarioConectado.key, UsuarioConectado.Usuario);
+    };
+
+    UsuarioConectado.agregar = function(nuevoContacto){
+      UsuarioConectado.Usuario.push(nuevoContacto);
+      UsuarioConectado.updateLocalStorage();
+    };
+
+    UsuarioConectado.eliminar = function(item){
+      UsuarioConectado.Usuario = UsuarioConectado.Usuario.filter(function(Usuario){
+        usuarioC=null;
+        return Usuario !== item;
+      });
+      UsuarioConectado.updateLocalStorage();
+    };
+
+    return UsuarioConectado;
+
+  })
+
+
+.service('LoginService', function($q, $http, Sesion) {
+    return {
+        loginUser: function(correo, pw) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var conectado = correo;
+            Sesion.usuarioC = conectado;
+
+
+            $http.get('http://localhost:5000/api/usuarios/'+correo)
+              .success(function(data){
+                if(data && data.email== correo && data.contrasena==pw){
+                  Sesion.agregar(data);
+                  deferred.resolve('Bienvenido ' + correo + '!');
+                }
+                else{deferred.reject('Error al iniciar datos incorrectos.');}
+              })
+              .error(function(data){
+                 console.log('Error: ' + data);
+                 
+              });
+ 
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+    
+    }
+
+
+})*/
   ;
 
