@@ -145,6 +145,8 @@ $scope.nuevo2 = {};
   $scope.contactos = [];
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
+  $scope.destinatario={};
+  $scope.mensajefinal={};
 /*--------------  HTTP conexion con el webService  --------------*/
     console.log('cargando contactos del service');
 
@@ -216,10 +218,9 @@ $scope.nuevo2 = {};
 
 
     $scope.abrirChat = function(destinatario){
-<<<<<<< HEAD
+
       console.log(destinatario);
-=======
->>>>>>> origin/master
+
       $scope.modal4.show();
       console.log(destinatario.nombre);
       $scope.destinatario.nombre = destinatario.nombre;
@@ -242,7 +243,7 @@ $scope.nuevo2 = {};
 })
 
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, historialChat) {
 
   
   $scope.chats = Chats.all();
