@@ -141,12 +141,12 @@ $scope.nuevo2 = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda,USER) {
+.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda, historialChat,USER) {
   $scope.contactos = [];
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
-  $scope.destinatario={};
-  $scope.mensajefinal={};
+  $scope.destinatario = {};
+  $scope.mensajefinal = {};
 /*--------------  HTTP conexion con el webService  --------------*/
     console.log('cargando contactos del service');
 
@@ -216,11 +216,7 @@ $scope.nuevo2 = {};
       else $scope.modal4.show();
     };
 
-
     $scope.abrirChat = function(destinatario){
-
-      console.log(destinatario);
-
       $scope.modal4.show();
       console.log(destinatario.nombre);
       $scope.destinatario.nombre = destinatario.nombre;
@@ -229,23 +225,17 @@ $scope.nuevo2 = {};
    
     };
 
-
   $scope.cerrarModal = function(index){
       if(index == 3) $scope.modal3.hide();
       else $scope.modal4.hide();
   };
+
   $scope.ejecutar = function(){
     console.log('ejecutando', $scope.contactos);
     $timeout(function(){
       $scope.modalNU.hide();
     },1000);
   };
-<<<<<<< HEAD
-})
-
-
-.controller('ChatsCtrl', function($scope, historialChat) {
-=======
 
 
   $scope.UnirMensaje = function(datos,texto){
@@ -255,7 +245,7 @@ $scope.nuevo2 = {};
    
     $scope.TextoMsj = 'SE BORRA';
 
-    historialChat.agregarChat($scope.mensajefinal);
+    historialChat.subirMensaje($scope.mensajefinal);
   };
 })
 
@@ -268,14 +258,16 @@ $scope.nuevo2 = {};
           .error(function(err){
             console.log(err);
           });
->>>>>>> upstream/master
 
   console.log('Cargo:');
   console.log($scope.chats);
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
-//  $scope.chat = Chats.get($stateParams.chatId);
+  //$scope.correo = Chats.get($stateParams.destinatario);
+//$scope.correo = Chats.listarMensajes($stateParams.);
+
+
 })
 
 .controller('perfilCtrl', function($scope, $http, USER) {
@@ -310,5 +302,4 @@ $scope.nuevo2 = {};
       $state.go('inicio');
     };
 });
-
 

@@ -1,9 +1,9 @@
 <ion-view view-title="Chats">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats | filter: 'wilfor@gmail'" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.destinatario}}">
         
-        <h2>{{chat.destinatario}}</h2>
+        <h2><strong>{{chat.destinatario}} - </strong></h2>
         <p>{{chat.mensaje}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
