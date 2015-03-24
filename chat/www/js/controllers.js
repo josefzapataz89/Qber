@@ -246,25 +246,21 @@ $scope.nuevo2 = {};
     $scope.TextoMsj = 'SE BORRA';
 
     historialChat.agregarChat($scope.mensajefinal);
-
-
-  };
-
-
-})
-
-
-.controller('ChatsCtrl', function($scope, Chats) {
-
-  
-  $scope.chats = Chats.all();
-
-  $scope.remove = function(chat) { 
-    Chats.remove(chat);
   };
 })
-.controller('ChatsCtrl', function($scope) {
-  
+
+
+.controller('ChatsCtrl', function($scope, historialChat, $http) {
+  $http.get('http://localhost:5000/api/chats')
+          .success(function(convers){
+            $scope.chats = convers;
+          })
+          .error(function(err){
+            console.log(err);
+          });
+
+  console.log('Cargo:');
+  console.log($scope.chats);
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
