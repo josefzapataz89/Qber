@@ -177,7 +177,7 @@ $scope.nuevo2 = {};
 
 })
 
-.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda, historialChat,USER) {
+.controller('ContactsCtrl', function($scope, $http, $ionicModal, Agenda, historialChat,store) {
   $scope.contactos = [];
   $scope.nuevoContacto = {};
   $scope.nuevo = {};
@@ -186,7 +186,7 @@ $scope.nuevo2 = {};
 /*--------------  HTTP conexion con el webService  --------------*/
     console.log('cargando contactos del service');
 
-    $http.get('http://localhost:5000/api/agenda/' + USER.correo)
+    $http.get('http://localhost:5000/api/agenda/' + store.get('correo'))
         .success(function(listaContactos){
           console.log(listaContactos);
           $scope.contactos = listaContactos;        
@@ -253,11 +253,9 @@ $scope.nuevo2 = {};
     };
 
     $scope.abrirChat = function(destinatario){
-<<<<<<< HEAD
-=======
+
 
       console.log(destinatario);
->>>>>>> upstream/master
       $scope.modal4.show();
       $scope.destinatario.nombre = destinatario.nombre;
       $scope.destinatario.correo = destinatario.correo;
@@ -313,7 +311,7 @@ $scope.nuevo2 = {};
 .controller('perfilCtrl', function($scope, $http, store) {
            $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
 
-            console.log('entrando a perfil... datos: Nombre:'+store.nombre+' Correo: '+store.correo);
+            //console.log('entrando a perfil... datos: Nombre:'+store.nombre+' Correo: '+store.correo);
              $scope.status = store.get('estado');
              $scope.nombre = store.get('nombre');
              $scope.settings ={enableFriends: true};
