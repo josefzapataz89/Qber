@@ -1,9 +1,4 @@
 angular.module('starter.controllers', ['ionic', 'angular-storage'])
-.value('USER',{
-  nombre: "",
-  correo: "",
-  estado: ""
-})
  
 .controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, $state, $http, UserService, store){
 $scope.dataInicio = {};
@@ -43,37 +38,6 @@ $scope.login = function() {
 
   });
 };
-/*
-    $scope.inicio = function(){
-      console.log('constante: '+ usuarioCone);
-      console.log('BIENVENIDO: '+$scope.dataInicio.username);
-        $http.get('http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username)
-        .success(function(data){
-          if(data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password){
-          console.log('usuario validado con la base de datos..');
-          USER.correo=data.email;
-          USER.estado=data.estado;
-          USER.id=data.id; 
-          USER.nombre=data.nombre;
-          console.log('datos del objeto:');
-          console.log(USER);
-          $state.go('tab.chats');
-
-                }
-                else{
-        var alertPopup = $ionicPopup.alert({
-        title: 'Error al Iniciar!',
-        template: 'Porfavor Revisa tu usuario o contraseña!'
-        });
-                }
-  
-        })
-        .error(function(error){
-          console.log(error);
-        });
-
-    };
-    */
 
   $scope.agregarUsuario = function(){
     $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
