@@ -145,6 +145,16 @@ router.route('/chats/receptor/:destinatario')
 			res.json(msgs);
 		});
 	});
+router.route('/chats/:emisor/:receptor')
+	.get(function(req, res){
+		Chat.find({
+			'remitente': req.params.emisor,
+			'destinatario': req.params.receptor}, function(err, mensajes){
+				if(err)
+					res.send(err);
+				res.json(mensajes);
+			});
+	});
 router.route('/agenda')
 	.post(function(req, res){
 		var contacto = new Agenda();

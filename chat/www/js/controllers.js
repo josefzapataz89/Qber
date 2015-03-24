@@ -240,20 +240,38 @@ $scope.nuevo2 = {};
       $scope.modalNU.hide();
     },1000);
   };
+<<<<<<< HEAD
 })
 
 
 .controller('ChatsCtrl', function($scope, historialChat) {
+=======
 
-  
-  $scope.chats = Chats.all();
 
-  $scope.remove = function(chat) { 
-    Chats.remove(chat);
+  $scope.UnirMensaje = function(datos,texto){
+    $scope.mensajefinal.remitente = datos.propietario;
+    $scope.mensajefinal.destinatario = datos.correo;
+    $scope.mensajefinal.mensaje = texto;
+   
+    $scope.TextoMsj = 'SE BORRA';
+
+    historialChat.agregarChat($scope.mensajefinal);
   };
 })
-.controller('ChatsCtrl', function($scope) {
-  
+
+
+.controller('ChatsCtrl', function($scope, historialChat, $http) {
+  $http.get('http://localhost:5000/api/chats')
+          .success(function(convers){
+            $scope.chats = convers;
+          })
+          .error(function(err){
+            console.log(err);
+          });
+>>>>>>> upstream/master
+
+  console.log('Cargo:');
+  console.log($scope.chats);
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams) {
