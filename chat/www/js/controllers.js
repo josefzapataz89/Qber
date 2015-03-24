@@ -1,22 +1,56 @@
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers', ['ionic', 'angular-storage'])
 .value('USER',{
-  nombre:"",
-  correo:"",
-  estado:"",
-  id:-1
+  nombre: "",
+  correo: "",
+  estado: ""
 })
-.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, LoginService, $state, $http, Sesion, USER){
+ 
+.controller('loginCtrl', function($scope, $ionicModal,$ionicPopup, $state, $http, UserService, store){
 $scope.dataInicio = {};
 $scope.dataUsuario = {};
 $scope.nuevo = {};
 
+$scope.login = function() {
+  // configuration object
+  var config = 'http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username;
+  
+      var usuario = {};
+  $http.get(config)
+  .success(function(data) {
+    if (data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password) {
+    
+      // succefull login
+      console.log('usuario: '+ $scope.dataInicio.username +' validado con contraseña: '+ $scope.dataInicio.password);
+
+          store.set('correo',data.email);
+          store.set('estado',data.estado);
+          store.set('id',data.id); 
+          store.set('nombre',data.nombre);
+      $state.go('tab.chats');
+    }
+    else 
+    {
+
+        var alertPopup = $ionicPopup.alert({
+        title: 'Error al Iniciar!',
+        template: 'Porfavor Revisa tu usuario o contraseña!'
+        });
+
+    }
+
+  })
+  .error(function(data ){
+
+  });
+};
+/*
     $scope.inicio = function(){
+      console.log('constante: '+ usuarioCone);
       console.log('BIENVENIDO: '+$scope.dataInicio.username);
         $http.get('http://localhost:5000/api/usuarios/'+ $scope.dataInicio.username)
         .success(function(data){
           if(data && data.email== $scope.dataInicio.username && data.contrasena==$scope.dataInicio.password){
-
-              console.log('usuario validado con la base de datos..');
+          console.log('usuario validado con la base de datos..');
           USER.correo=data.email;
           USER.estado=data.estado;
           USER.id=data.id; 
@@ -24,6 +58,7 @@ $scope.nuevo = {};
           console.log('datos del objeto:');
           console.log(USER);
           $state.go('tab.chats');
+
                 }
                 else{
         var alertPopup = $ionicPopup.alert({
@@ -38,6 +73,7 @@ $scope.nuevo = {};
         });
 
     };
+    */
 
   $scope.agregarUsuario = function(){
     $scope.nuevo.nombre = $scope.dataUsuario.Nombre;
@@ -217,8 +253,12 @@ $scope.nuevo2 = {};
     };
 
     $scope.abrirChat = function(destinatario){
+<<<<<<< HEAD
+=======
+
+      console.log(destinatario);
+>>>>>>> upstream/master
       $scope.modal4.show();
-      console.log(destinatario.nombre);
       $scope.destinatario.nombre = destinatario.nombre;
       $scope.destinatario.correo = destinatario.correo;
       $scope.destinatario.propietario = destinatario.propietario;
@@ -270,12 +310,12 @@ $scope.nuevo2 = {};
 
 })
 
-.controller('perfilCtrl', function($scope, $http, USER) {
+.controller('perfilCtrl', function($scope, $http, store) {
            $scope.foto = 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg';
-    
-            console.log('entrando a perfil... datos: Nombre:'+USER.nombre+' Correo: '+USER.correo);
-             $scope.status = USER.estado;
-             $scope.nombre = USER.nombre;
+
+            console.log('entrando a perfil... datos: Nombre:'+store.nombre+' Correo: '+store.correo);
+             $scope.status = store.get('estado');
+             $scope.nombre = store.get('nombre');
              $scope.settings ={enableFriends: true};
                     
 })
@@ -286,19 +326,16 @@ $scope.nuevo2 = {};
   };
   $scope.settings = { enableFriends: true };
 })
-.controller('configuracionCtrl', function($scope, $state, USER) {
+.controller('configuracionCtrl', function($scope, $state, store) {
   $scope.settings = { enableFriends: true };
     
       $scope.cerrarsesion = function(usuarioc){
-      console.log('usuario: '+USER.nombre);
       console.log('cerrando sesion..');
-      console.log(USER.nombre +' ha cerrado session');
-      USER.nombre="";
-      USER.correo="";
-      USER.estado="";
-      USER.id=-1;
-      console.log('usuario luego de eliminar: ');
-      console.log(USER);
+      store.remove('nombre');
+      store.remove('correo');
+      store.remove('estado');
+      store.remove('id');
+      location.reload(true);
       $state.go('inicio');
     };
 });
