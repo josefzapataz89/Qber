@@ -90,10 +90,29 @@ angular.module('starter.services', ["LocalStorageModule"])
        
        return chats;
   })
-  
+/*
+.factory('variableG',function($scope, $http){
+var conectado = 
+})*/
+
+.factory('UserService', function() {
+  var User = {};
+
+  var usuario = {};
+
+  User.setUsuario = function(user){
+    usuario = user;
+  };
+  User.getUsuario = function(){
+    return usuario;
+  };
+
+  return User;
+})
+  /*
 .factory('Sesion', function(localStorageService){
     var UsuarioConectado = {};
-    var usuarioC=null;
+    var usuarioC;
 
     UsuarioConectado.key = "Qber-UsuarioConectado";
 
@@ -134,6 +153,7 @@ angular.module('starter.services', ["LocalStorageModule"])
             var conectado = correo;
             Sesion.usuarioC = conectado;
 
+
             $http.get('http://localhost:5000/api/usuarios/'+correo)
               .success(function(data){
                 if(data && data.email== correo && data.contrasena==pw){
@@ -157,7 +177,10 @@ angular.module('starter.services', ["LocalStorageModule"])
             }
             return promise;
         }
+    
     }
-})
+
+
+})*/
   ;
 
