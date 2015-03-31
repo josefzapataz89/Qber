@@ -128,6 +128,13 @@ router.route('/chats')
 				res.send(err);
 			res.json(msgs);
 		});
+	})
+	.delete(function(req, res){
+		Chat.remove(function(err, chats){
+			if(err)
+				res.send(err);
+			res.json(chats);
+		});
 	});
 router.route('/chats/emisor/:remitente')
 	.get(function(req, res){
