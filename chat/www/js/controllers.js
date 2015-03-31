@@ -22,10 +22,10 @@ $scope.login = function() {
       // succefull login
       console.log('usuario: '+ $scope.dataInicio.username +' validado con contraseña: '+ $scope.dataInicio.password);
 
-          store.set('correo',data.email);
-          store.set('estado',data.estado);
-          store.set('id',data.id); 
-          store.set('nombre',data.nombre);
+      store.set('correo',data.email);
+      store.set('estado',data.estado);
+      store.set('id',data.id); 
+      store.set('nombre',data.nombre);
       $state.go('tab.chats');
     }
     else 
