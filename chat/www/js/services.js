@@ -1,11 +1,11 @@
 angular.module('starter.services', ["LocalStorageModule"])
 
-  .factory('Agenda', function($http){
+  .factory('Agenda', function($http,USER){
     var contactos = [];
     var agenda = {};
 
     agenda.agregar = function(nuevoContacto){
-      nuevoContacto.propietario = "jose@gmail.com";
+      nuevoContacto.propietario = USER.correo;
       $http.post('http://localhost:5000/api/agenda', nuevoContacto)
         .success(function(data){
           console.log('agrego contacto');
@@ -16,8 +16,8 @@ angular.module('starter.services', ["LocalStorageModule"])
         });
     };
 
-    agenda.limpiar = function(){
-      $http.delete('http://localhost:5000/api/agenda/jose@gmail.com')
+    agenda.limpiar = function(USER){
+      $http.delete('http://localhost:5000/api/agenda/' + USER.correo)
         .success(function(data){
           console.log('borrando lista de contactos');
           console.log(data);
@@ -27,8 +27,8 @@ angular.module('starter.services', ["LocalStorageModule"])
         });
     };
 
-    agenda.eliminarContacto = function(item){
-      $http.delete('http://localhost:5000/api/agenda/jose@gmail.com/'+item.correo)
+    agenda.eliminarContacto = function(item,USER){
+      $http.delete('http://localhost:5000/api/agenda/'+ USER.correo + item.correo)
         .success(function(data){
           console.log('eliminando un contacto');
           console.log(data);
@@ -59,6 +59,7 @@ angular.module('starter.services', ["LocalStorageModule"])
        chats.listarMensajes = function(contacto){
         $http.get('http://localhost:5000/api/chats/'+USER.correo+'/'+contacto.correo)
           .success(function(chat){
+              console.log(USER.correo + contacto.correo);
             mensajes = chat;
           })
           .error(function(err){
@@ -66,7 +67,7 @@ angular.module('starter.services', ["LocalStorageModule"])
           });
        };
 
-       chats.listarConversaciones = function(){
+       chats.listarConversaciones = function(contacto){
         $http.get('http://localhost:5000/api/chats')
           .success(function(convers){
             console.log('chats');
@@ -79,7 +80,7 @@ angular.module('starter.services', ["LocalStorageModule"])
        };
 
        chats.subirMensaje = function(mensaje){
-        $post('http://localhost:5000/api/chats', mensaje)
+        $http.post('http://localhost:5000/api/chats', mensaje)
           .success(function(data){
             console.log(data);
           })
@@ -90,10 +91,29 @@ angular.module('starter.services', ["LocalStorageModule"])
        
        return chats;
   })
-  
+/*
+.factory('variableG',function($scope, $http){
+var conectado = 
+})*/
+
+.factory('UserService', function() {
+  var User = {};
+
+  var usuario = {};
+
+  User.setUsuario = function(user){
+    usuario = user;
+  };
+  User.getUsuario = function(){
+    return usuario;
+  };
+
+  return User;
+})
+  /*
 .factory('Sesion', function(localStorageService){
     var UsuarioConectado = {};
-    var usuarioC=null;
+    var usuarioC;
 
     UsuarioConectado.key = "Qber-UsuarioConectado";
 
@@ -134,6 +154,7 @@ angular.module('starter.services', ["LocalStorageModule"])
             var conectado = correo;
             Sesion.usuarioC = conectado;
 
+
             $http.get('http://localhost:5000/api/usuarios/'+correo)
               .success(function(data){
                 if(data && data.email== correo && data.contrasena==pw){
@@ -157,7 +178,9 @@ angular.module('starter.services', ["LocalStorageModule"])
             }
             return promise;
         }
+    
     }
-})
-  ;
 
+
+})*/
+  ;
